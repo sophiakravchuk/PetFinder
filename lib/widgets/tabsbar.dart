@@ -1,6 +1,4 @@
 import 'package:lost_animal/screens/advert_creation/advert_creation_screen.dart';
-import 'package:lost_animal/screens/create_screen.dart';
-import 'package:lost_animal/screens/home_page.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +26,8 @@ class _TabsBarScreenState extends State<TabsBarScreen> {
         },
         child: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.blue,
-            selectedItemColor: Colors.white,
+            backgroundColor: Colors.green,
+            selectedItemColor: Colors.black,
             currentIndex: _currentIndex,
             items: [
               BottomNavigationBarItem(
@@ -79,7 +77,7 @@ class _TabsBarScreenState extends State<TabsBarScreen> {
   Map<String, WidgetBuilder> _routes(BuildContext context, int index) {
     return {
       '/': (context) {
-        return [ProfileScreen(), AdvertPage(), AdvertCreationScreen()]
+        return [ProfileScreen(), AdvertCreationScreen(), ProfileScreen()]
             .elementAt(index);
       },
     };

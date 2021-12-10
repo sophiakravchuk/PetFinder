@@ -20,10 +20,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
   final TextEditingController fullname = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController mail = TextEditingController();
-  final TextEditingController animal = TextEditingController();
+  // final TextEditingController animal = TextEditingController();
+  final TextEditingController animalName = TextEditingController();
   final TextEditingController description = TextEditingController();
-
-  var imagePath;
+  String imagePath = '';
 
   String dropdownvalue = 'Dog';
   var items = ['Dog', 'Cat', 'Rabbit', 'Other'];
@@ -37,11 +37,12 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
   @override
   void dispose() {
     fullname.dispose();
+    print(fullname);
     phoneNumber.dispose();
     mail.dispose();
-    animal.dispose();
+    animalName.dispose();
     description.dispose();
-    imagePath.dispose();
+    // imagePath.dispose();
     super.dispose();
   }
 
@@ -54,9 +55,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
         this.fullname.text = state.fullName;
         this.phoneNumber.text = state.phoneNumber;
         this.mail.text = state.mail;
-        this.animal.text = state.animal;
+        this.animalName.text = state.animalName;
+        // this.animal.text = state.animal;
         this.description.text = state.description;
-        this.imagePath.text = state.imagePath;
+        this.imagePath = state.imagePath;
       }
       return advertCreation();
     });
@@ -73,12 +75,30 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
           children: [
             Column(
               children: [
-                buildImage(),
+                Stack(
+                  children: [
+                    buildImage(),
+                    Positioned(
+                      bottom: 0,
+                      right: 4,
+                      child: ClipOval(
+                        child: Container(
+                            color: Colors.blue,
+                            child: IconButton(
+                              icon: Icon(Icons.edit),
+                              color: Colors.white,
+                              iconSize: 20,
+                              onPressed: () {},
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Full name',
-                  text: this.fullname.text,
-                  onChanged: (email) {},
+                  controller: this.fullname,
+                  onChanged: (fullname) {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
@@ -90,6 +110,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                 TextFieldWidget(
                   label: 'Phone number',
                   text: this.phoneNumber.text,
+                  controller: this.phoneNumber,
                   onChanged: (phoneNumber) {},
                 ),
                 const SizedBox(height: 24),
@@ -111,53 +132,17 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
+                  label: 'Animal name',
+                  text: this.animalName.text,
+                  onChanged: (animalName) {},
+                ),
+                const SizedBox(height: 24),
+                TextFieldWidget(
                   label: 'Description',
                   text: this.description.text,
                   maxLines: 5,
                   onChanged: (description) {},
                 ),
-
-                // Padding(
-                //   padding: EdgeInsets.only(right: 100, bottom: 10),
-                //   child: Text(
-                //     'Username',
-                //     textAlign: TextAlign.left,
-                //     style: TextStyle(
-                //       fontWeight: FontWeight.w700,
-                //       fontSize: 18,
-                //     ),
-                //   ),
-                // ),
-                // infoFiled(this.fullname),
-                // SizedBox(
-                //   height: 30,
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(right: 130, bottom: 10),
-                //   child: Text(
-                //     'Phone',
-                //     style: TextStyle(
-                //       fontWeight: FontWeight.w700,
-                //       fontSize: 18,
-                //     ),
-                //   ),
-                // ),
-                // infoFiled(this.phoneNumber),
-                // SizedBox(
-                //   height: 30,
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(right: 130, bottom: 10),
-                //   child: Text(
-                //     'Email',
-                //     style: TextStyle(
-                //       fontWeight: FontWeight.w700,
-                //       fontSize: 18,
-                //     ),
-                //   ),
-                // ),
-                // infoFiled(this.mail),
-
                 SizedBox(
                   height: 50,
                 ),
@@ -175,7 +160,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
       title: Padding(
         padding: EdgeInsets.only(top: 15),
         child: Text(
-          'Profile',
+          'New Advert',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -186,31 +171,6 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
       centerTitle: true,
       backgroundColor: Colors.green,
       elevation: 0,
-    );
-  }
-
-  Widget infoFiled(valueController) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 200,
-          height: 55,
-          child: WillPopScope(
-            child: TextField(
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 18,
-              ),
-              controller: valueController,
-              onSubmitted: (value) {
-                valueController.text = value;
-              },
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -246,10 +206,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
         color: Colors.transparent,
         child: Ink.image(
           image: image,
+          // image: NetworkImage(this.imagePath),
           fit: BoxFit.cover,
           width: 128,
           height: 128,
-          // child: InkWell(onTap: onClicked),
         ),
       ),
     );

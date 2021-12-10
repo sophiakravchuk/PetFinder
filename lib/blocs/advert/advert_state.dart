@@ -14,6 +14,7 @@ class AdvertCreated extends AdvertState {
   final String phoneNumber;
   final String mail;
   final String animal;
+  final String animalName;
   final String description;
   final String imagePath;
 
@@ -22,6 +23,7 @@ class AdvertCreated extends AdvertState {
       this.phoneNumber,
       this.mail,
       this.animal,
+      this.animalName,
       this.description,
       this.imagePath});
 
@@ -30,12 +32,14 @@ class AdvertCreated extends AdvertState {
       String phoneNumber,
       String mail,
       String animal,
+      String animalName,
       String description,
       String imagePath}) {
     return AdvertCreated(
         fullName: fullName ?? this.fullName,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         mail: mail ?? this.mail,
+        animalName: animalName ?? this.animalName,
         animal: animal ?? this.animal,
         description: description ?? this.description,
         imagePath: imagePath ?? this.imagePath);
@@ -43,5 +47,5 @@ class AdvertCreated extends AdvertState {
 
   @override
   List<Object> get props =>
-      [fullName, phoneNumber, mail, animal, description, imagePath];
+      [fullName, phoneNumber, mail, animal, animalName, description, imagePath];
 }
