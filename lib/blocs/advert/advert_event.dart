@@ -8,3 +8,5 @@ abstract class AdvertEvent extends Equatable {
 }
 
 class AdvertCreation extends AdvertEvent {}
+
+class AdvertLoad extends AdvertEvent {}

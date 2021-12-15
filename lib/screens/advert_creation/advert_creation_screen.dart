@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:lost_animal/blocs/advert/advert_bloc.dart';
 import 'package:lost_animal/blocs/advert/advert_event.dart';
 import 'package:lost_animal/blocs/advert/advert_state.dart';
+import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
 
 import '../../constants.dart';
@@ -179,6 +180,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
       width: 100.0,
       height: 35.0,
       child: FloatingActionButton(
+        heroTag: "save_profile_button",
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -192,6 +194,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
         ),
         onPressed: () {
           //  TODO
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AdvertScreen())
+          );
         },
       ),
     );
