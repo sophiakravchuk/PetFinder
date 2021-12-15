@@ -6,6 +6,9 @@ import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_bloc.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_event.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_state.dart';
 
+import '../../services/LostForm_model.dart';
+import '../../services/http_services.dart';
+
 import '../../constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -19,6 +22,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController username = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController mail = TextEditingController();
+
+  final HttpService httpService = HttpService();
+
   // String userName = 'Nickname';
   // String phoneNumber = "1111";
   // String mail = "@gmail/com";
@@ -164,6 +170,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         onPressed: () {
         //  TODO
+          LostForm lf = LostForm(
+            userName: "j",
+            id: 2,
+            email: 'k',
+            phone: "90",
+          );
+          // httpService.createLostForm(lf);
+          List<LostForm> res = httpService.getLostForms() as List<LostForm>;
+          print(res[0].toJson().toString());
+
         },
       ),
     );
