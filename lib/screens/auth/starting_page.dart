@@ -31,32 +31,36 @@ class _StartScreenState extends State<StartScreen> {
 
   Widget authFirstPage() {
     return Scaffold(
-        appBar: myAppBar(),
-        body: SafeArea(
+      appBar: myAppBar(),
+      body: SafeArea(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 250),
-        child: ListView(
-        children: [
-        Column(
-        children: [
-          logInButton(),
-          SizedBox(
-            height: 10.h,
-          ),
-          singUpButton()
-        ]
-        )
-        ],
-        )
+            child: ListView(
+              children: [
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      logInButton(),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      singUpButton()
+                    ]
+                )
+              ],
+            )
         ),
-        ),
+      ),
     );
   }
+
   Widget logInButton() {
     return Container(
       width: 260.0.w,
       height: 65.0.h,
       child: FloatingActionButton(
+        heroTag: "login_button",
         backgroundColor: Color(0xFF63B4FF),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -83,6 +87,7 @@ class _StartScreenState extends State<StartScreen> {
       width: 260.0.w,
       height: 65.0.h,
       child: FloatingActionButton(
+        heroTag: "signup_button",
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),

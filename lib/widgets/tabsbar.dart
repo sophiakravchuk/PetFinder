@@ -1,4 +1,5 @@
 import 'package:lost_animal/screens/advert_creation/advert_creation_screen.dart';
+import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +78,7 @@ class _TabsBarScreenState extends State<TabsBarScreen> {
   Map<String, WidgetBuilder> _routes(BuildContext context, int index) {
     return {
       '/': (context) {
-        return [ProfileScreen(), AdvertCreationScreen(), ProfileScreen()]
+        return [AdvertListScreen(), AdvertCreationScreen(), ProfileScreen()]
             .elementAt(index);
       },
     };

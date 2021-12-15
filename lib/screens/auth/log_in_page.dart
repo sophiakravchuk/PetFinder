@@ -7,6 +7,7 @@ import 'package:lost_animal/blocs/authlogin_bloc/authlogin_event.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:lost_animal/blocs/authlogin_bloc/authlogin_bloc.dart';
 import 'package:lost_animal/blocs/authlogin_bloc/authlogin_state.dart';
+import 'package:lost_animal/widgets/tabsbar.dart';
 
 
 import '../../constants.dart';
@@ -117,6 +118,7 @@ class _LogInScreenState extends State<LogInScreen> {
       width: 200.0.w,
       height: 55.0.h,
       child: FloatingActionButton(
+        heroTag: "login_button",
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -131,7 +133,7 @@ class _LogInScreenState extends State<LogInScreen> {
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileScreen())
+              MaterialPageRoute(builder: (context) => TabsBarScreen())
           );
         },
       ),

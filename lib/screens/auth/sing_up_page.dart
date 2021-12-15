@@ -7,6 +7,7 @@ import 'package:lost_animal/blocs/authsingup_bloc/authsingup_event.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:lost_animal/blocs/authsingup_bloc/authsingup_bloc.dart';
 import 'package:lost_animal/blocs/authsingup_bloc/authsingup_state.dart';
+import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
 
@@ -128,6 +129,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
       width: 200.0.w,
       height: 55.0.h,
       child: FloatingActionButton(
+        heroTag: "sign_up_button",
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -142,7 +144,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
         onPressed: () {
           Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileScreen())
+                MaterialPageRoute(builder: (context) => TabsBarScreen())
             );
         },
       ),

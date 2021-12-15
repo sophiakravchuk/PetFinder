@@ -159,6 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       width: 100.0.w,
       height: 35.0.h,
       child: FloatingActionButton(
+        heroTag: "save_user_button",
         backgroundColor: Colors.green,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
