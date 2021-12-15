@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_bloc.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_event.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_state.dart';
+import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 
 import '../../services/LostForm_model.dart';
 import '../../services/http_services.dart';
@@ -60,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget personalInfo() {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar("Profile"),
       body: SafeArea(
         child: Container(
             child: ListView(
@@ -169,6 +171,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AdvertListScreen()));
         //  TODO
           LostForm lf = LostForm(
             userName: "j",
@@ -185,26 +191,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget myAppBar() {
-    return
-      AppBar(
-      title:
-      Padding(
-        padding: EdgeInsets.only(top: 15.h),
-        child: Text(
-          'Profile',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25.sp,
-          ),
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green,
-      elevation: 0,
-    );
-  }
 
 }
 
