@@ -1,6 +1,7 @@
 import 'dart:convert';
 // import 'package:http/http.dart' as http;
 import 'LostForm_model.dart';
+import 'UserForm.dart';
 import 'package:dio/dio.dart';
 
 
@@ -23,6 +24,35 @@ class HttpService {
           .toList();
 
       return lostForms;
+    } else {
+      throw "Unable to retrieve LostForms.";
+    }
+  }
+
+  Future<List<UserForm>> getUserForms() async {
+
+
+    var headers = {
+      'content-type': "application/json",
+      'x-apikey': "d4815e122853326969ff62e32e10c377c8212",
+      'cache-control': "no-cache"
+    };
+    _dio.options.headers = headers;
+
+    Response res = await _dio.get('$lostFormsURL/user-forms');
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.data);
+      // List<String> body = jsonDecode(res.data);
+
+
+      List<UserForm> userForms = body
+          .map(
+            (dynamic item) => UserForm.fromJson(item),
+      )
+          .toList();
+      return userForms;
+
+
     } else {
       throw "Unable to retrieve LostForms.";
     }
@@ -67,6 +97,30 @@ class HttpService {
       print("ok");
     }
   }
+
+  Future<void> createUserForm(UserForm userForm) async {
+
+    var headers = {
+      'content-type': "application/json",
+      'x-apikey': "d4815e122853326969ff62e32e10c377c8212",
+      'cache-control': "no-cache"
+    };
+
+    _dio.options.headers = headers;
+    final response = await _dio.post(
+      lostFormsURL + '/user-forms',
+
+      data: jsonEncode(userForm.toJson()),
+    );
+    if (response.statusCode != 201) {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to load album ${response.statusCode.toString()}');
+    } else {
+      print("ok");
+    }
+  }
+
 }
 
 

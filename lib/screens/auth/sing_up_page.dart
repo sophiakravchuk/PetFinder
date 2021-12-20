@@ -11,6 +11,9 @@ import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
 
+import '../../services/UserForm.dart';
+import '../../services/http_services.dart';
+
 class SingUpScreen extends StatefulWidget {
   const SingUpScreen({Key key}) : super(key: key);
 
@@ -19,6 +22,12 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
+  final TextEditingController username = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController mail = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController confpass = TextEditingController();
+  HttpService httpService = HttpService();
 
   @override
   void initState() {
@@ -28,6 +37,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
   @override
   void dispose() {
+    username.dispose();
+    phoneNumber.dispose();
+    mail.dispose();
+    pass.dispose();
+    confpass.dispose();
     super.dispose();
   }
 
@@ -38,13 +52,13 @@ class _SingUpScreenState extends State<SingUpScreen> {
     return BlocBuilder<AuthSingUpBloc, AuthSingUpState>(
         builder: (context, state) {
           if (state is AuthSingUpSaved) {
-
           }
           return authSingUpPage();
         });
   }
 
   Widget authSingUpPage() {
+
     return Scaffold(
       appBar: myAppBar(),
       body: SafeArea(
@@ -79,20 +93,21 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    inputField("Username", "Enter your Name or Nickname", TextInputType.text, false),
+                    inputField("Username", "Enter your Name or Nickname", TextInputType.text, false, username),
+
                     SizedBox(
                       height: 10.h,
                     ),
-                    inputField("Phone", "(012)-345-67-89", TextInputType.phone, false),
+                    inputField("Phone", "(012)-345-67-89", TextInputType.phone, false, phoneNumber),
                     SizedBox(
                       height: 10.h,
                     ),
-                    inputField("Email","example@mail.com", TextInputType.emailAddress, false),
+                    inputField("Email","example@mail.com", TextInputType.emailAddress, false, mail),
                     SizedBox(
                       height: 10.h,
                     ),
-                    inputField("Password","Enter your password here", TextInputType.visiblePassword, true),
-                    inputField("Confirm password","Repeat password to confirm it", TextInputType.visiblePassword, true),
+                    inputField("Password","Enter your password here", TextInputType.visiblePassword, true, pass),
+                    inputField("Confirm password","Repeat password to confirm it", TextInputType.visiblePassword, true, confpass),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -105,11 +120,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
     );
   }
 
-  Widget inputField(String label, String hint, TextInputType inputType, bool obscureFlag) {
+  Widget inputField(String label, String hint, TextInputType inputType, bool obscureFlag, TextEditingController control) {
     return Container(
         width: 300.0.w,
         height: 65.0.h,
     child: TextField(
+      controller: control,
       keyboardType: inputType,
       obscureText: obscureFlag,
       decoration: InputDecoration(
@@ -117,7 +133,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
         hintText: hint,
         labelText: label,
       ),
-      onChanged: (String value) {},
+      onChanged: (String value) { return value; },
     ),
     );
   }
@@ -125,6 +141,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
 
   Widget _singUpButton() {
+    UserForm userForm = UserForm();
     return Container(
       width: 200.0.w,
       height: 55.0.h,
@@ -142,6 +159,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
           ),
         ),
         onPressed: () {
+          userForm.userName = username.text;
+          userForm.email = mail.text;
+          userForm.pass = pass.text;
+          userForm.phone = phoneNumber.text;
+          httpService.createUserForm(userForm);
           Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => TabsBarScreen())
