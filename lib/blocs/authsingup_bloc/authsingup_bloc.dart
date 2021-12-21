@@ -14,7 +14,7 @@ class AuthSingUpBloc extends Bloc<AuthSingUpEvent, AuthSingUpState> {
 
   Stream<AuthSingUpState> _mapAuthSingUpSave(AuthSingUpSave event) async* {
   //   TODO: add repository or just api request to get user info
-    yield AuthSingUpSaved(
-        username: "Julia", phoneNumber: "066", mail: "julia@gmail.com");
+    yield AuthSingUpSaved();
+        // username: "", phoneNumber: "", mail: "", pass: "");
   }
 }

@@ -7,6 +7,8 @@ import 'package:lost_animal/blocs/authlogin_bloc/authlogin_event.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:lost_animal/blocs/authlogin_bloc/authlogin_bloc.dart';
 import 'package:lost_animal/blocs/authlogin_bloc/authlogin_state.dart';
+import 'package:lost_animal/services/UserForm.dart';
+import 'package:lost_animal/services/http_services.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
 
 
@@ -20,7 +22,10 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-
+  HttpService httpService = HttpService();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  int userID;
   @override
   void initState() {
     BlocProvider.of<AuthLogInBloc>(context).add(AuthLogInEnter());
@@ -29,6 +34,8 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   void dispose() {
+    email.dispose();
+    pass.dispose();
     super.dispose();
   }
 
@@ -80,8 +87,8 @@ class _LogInScreenState extends State<LogInScreen> {
                     SizedBox(
                       height: 25.h,
                     ),
-                    inputField("Personal information", "Enter your Username/Phone/Email", TextInputType.text, false),
-                    inputField("Password","Enter your password here", TextInputType.visiblePassword, true),
+                    inputField("Personal information", "Enter your Email", TextInputType.text, false, email),
+                    inputField("Password","Enter your password here", TextInputType.visiblePassword, true, pass),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -94,11 +101,12 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  Widget inputField(String label, String hint, TextInputType inputType, bool obscureFlag) {
+  Widget inputField(String label, String hint, TextInputType inputType, bool obscureFlag, TextEditingController control) {
     return Container(
       width: 300.0.w,
       height: 65.0.h,
       child: TextField(
+        controller: control,
         keyboardType: inputType,
         obscureText: obscureFlag,
         decoration: InputDecoration(
@@ -111,9 +119,18 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-
+  Future<int> getUserID() async {
+    List<UserForm> users = await httpService.getUserForms();
+    for (int i = 0; i < users.length; i ++){
+      if (users[i].email == email.text && users[i].pass == pass.text){
+        return users[i].id;
+      }
+    }
+    return -1;
+  }
 
   Widget _logInButton() {
+
     return Container(
       width: 200.0.w,
       height: 55.0.h,
@@ -130,7 +147,13 @@ class _LogInScreenState extends State<LogInScreen> {
             fontSize: 24.sp,
           ),
         ),
-        onPressed: () {
+        onPressed: () async {
+          userID = await getUserID();
+          if (userID < 0) {
+            // ToDo: LogIn one more time + add userID to shared preferences
+          } else{
+            print("userID " + userID.toString());
+          }
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => TabsBarScreen())
@@ -160,6 +183,8 @@ class _LogInScreenState extends State<LogInScreen> {
         elevation: 0,
       );
   }
+
+
 
 }
 
