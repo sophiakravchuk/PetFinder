@@ -19,6 +19,7 @@ class AdvertListScreen extends StatefulWidget {
 
 class _AdvertListScreenState extends State<AdvertListScreen> {
   List<Map> adventList = [];
+  bool myCheckboxValue = false;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
       body: SafeArea(
         child: Container(
             child: advertList()),
+      // child: _checkbox()),
       ),
     );
   }
@@ -60,26 +62,33 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
   }
 
   Widget advertListWidget(List<Map> list) {
-    return ListView.separated(
-      padding: EdgeInsets.fromLTRB(23.5.w, 0, 23.5.w, 30.w),
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        if (list != null && list.length > 0) {
-          return Column(
-            children: [
-              SizedBox(
-                height: 15.h,
-              ),
-              AdventPreview(
-              advent: list[index],
-              ),
-            ],
-          );
-        } else {
-          return Container();
-        }
-      },
-      separatorBuilder: (context, index) => SizedBox(height: 1.w),
+    return Column(
+        children: <Widget>[
+          _checkbox(),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.fromLTRB(23.5.w, 0, 23.5.w, 30.w),
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                if (list != null && list.length > 0) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      AdventPreview(
+                        advent: list[index],
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              },
+              separatorBuilder: (context, index) => SizedBox(height: 1.w),
+            ),
+          )
+        ]
     );
   }
 
@@ -87,5 +96,38 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
   Widget loadingCircle() {
     Widget indicator = CupertinoActivityIndicator();
     return indicator;
+  }
+
+  Widget _checkbox() {
+    return FlatButton(
+      onPressed: () {
+        setState(() {
+          myCheckboxValue = !myCheckboxValue;
+        });
+      },
+      child:
+      Padding(
+        padding: EdgeInsets.fromLTRB(27.w, 13.w, 13.w, 10.w),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'My only ',
+                style: TextStyle(
+                  color: Colors.black,
+                  // fontFamily: openSans,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                ),
+              ),
+              Icon(
+                  myCheckboxValue
+                      ? Icons.check_box
+                      : Icons.check_box_outline_blank,
+                  size: 26.w,
+                  color: Colors.green)
+            ]),
+      ),
+    );
   }
 }
