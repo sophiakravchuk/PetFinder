@@ -150,7 +150,7 @@ class _LogInScreenState extends State<LogInScreen> {
         onPressed: () async {
           userID = await getUserID();
           if (userID < 0) {
-            // ToDo: LogIn one more time
+            // ToDo: LogIn one more time + add userID to shared preferences
           } else{
             print("userID " + userID.toString());
           }

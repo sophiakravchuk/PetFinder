@@ -41,16 +41,24 @@ class HttpService {
 
     Response res = await _dio.get('$lostFormsURL/user-forms');
     if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.data);
+      // List<dynamic> body = [];
+      // for (int i = 0; i < res.data.length; i++) {
+      //   var dataItem = jsonDecode(res.data[i]);
+      //   body.add(dataItem);
+      // }
       // List<String> body = jsonDecode(res.data);
 
+        final responseJson = res.data;
+        List<UserForm> userForms = List.from(responseJson.map((m) => UserForm.fromJson(m)));
 
-      List<UserForm> userForms = body
-          .map(
-            (dynamic item) => UserForm.fromJson(item),
-      )
-          .toList();
-      return userForms;
+
+
+      // List<UserForm> userForms = res.data
+      //     .map(
+      //       (dynamic item) => UserForm.fromJson(item),
+      // )
+      //     .toList();
+       return userForms;
 
 
     } else {
