@@ -80,22 +80,22 @@ class _AdvertScreenState extends State<AdvertScreen> {
           physics: BouncingScrollPhysics(),
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildImage(),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Author name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Author name',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   this.fullname.text,
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -103,19 +103,18 @@ class _AdvertScreenState extends State<AdvertScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Phone number',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Phone number',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   '48774784348',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -123,19 +122,18 @@ class _AdvertScreenState extends State<AdvertScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Email',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Email',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'sdss@sfvd.com',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -143,19 +141,18 @@ class _AdvertScreenState extends State<AdvertScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Pet',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Pet',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'cat',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -163,19 +160,18 @@ class _AdvertScreenState extends State<AdvertScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Pet name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Pet name',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Marsik',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -183,19 +179,18 @@ class _AdvertScreenState extends State<AdvertScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 18, 0),
-                  child: Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
+                Text(
+                  'Description',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'we wdjw  k;dwekdnwekdwdwdaldjasld dvsdvsvsve wdjw  k;dwekdnwekdwdwdaldjasld',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,

@@ -6,6 +6,8 @@ import 'package:lost_animal/blocs/advert/advert_bloc.dart';
 import 'package:lost_animal/blocs/advert/advert_event.dart';
 import 'package:lost_animal/blocs/advert/advert_state.dart';
 import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
+import 'package:lost_animal/services/LostForm_model.dart';
+import 'package:lost_animal/services/http_services.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
 
 import '../../constants.dart';
@@ -18,16 +20,21 @@ class AdvertCreationScreen extends StatefulWidget {
 }
 
 class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
-  final TextEditingController fullname = TextEditingController();
+  final TextEditingController fullName = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController mail = TextEditingController();
   // final TextEditingController animal = TextEditingController();
-  final TextEditingController animalName = TextEditingController();
+  final TextEditingController petName = TextEditingController();
   final TextEditingController description = TextEditingController();
+  HttpService httpService = HttpService();
+
   String imagePath = '';
 
-  String dropdownvalue = 'Dog';
-  var items = ['Dog', 'Cat', 'Rabbit', 'Other'];
+  String dropdownAnimalType = 'Dog';
+  List<String> animalTypes = ['Dog', 'Cat', 'Rabbit', 'Other'];
+
+  String dropdownAdvertType = 'Lost';
+  List<String> advertTypes = ['Lost', 'Found'];
 
   @override
   void initState() {
@@ -37,11 +44,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
 
   @override
   void dispose() {
-    fullname.dispose();
-    print(fullname);
+    fullName.dispose();
     phoneNumber.dispose();
     mail.dispose();
-    animalName.dispose();
+    petName.dispose();
     description.dispose();
     // imagePath.dispose();
     super.dispose();
@@ -53,10 +59,10 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
         designSize: DesignConfig.size, allowFontScaling: true);
     return BlocBuilder<AdvertBloc, AdvertState>(builder: (context, state) {
       if (state is AdvertCreated) {
-        this.fullname.text = state.fullName;
+        this.fullName.text = state.fullName;
         this.phoneNumber.text = state.phoneNumber;
         this.mail.text = state.mail;
-        this.animalName.text = state.animalName;
+        this.petName.text = state.animalName;
         // this.animal.text = state.animal;
         this.description.text = state.description;
         this.imagePath = state.imagePath;
@@ -98,7 +104,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Full name',
-                  controller: this.fullname,
+                  controller: this.fullName,
                   onChanged: (fullname) {},
                 ),
                 const SizedBox(height: 24),
@@ -116,38 +122,58 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  "Animal",
+                  "Pet",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
+
                 DropdownButton<String>(
-                  value: dropdownvalue,
+                  value: dropdownAnimalType,
                   icon: Icon(Icons.keyboard_arrow_down),
-                  items: items.map((String items) {
+                  items: animalTypes.map((String items) {
                     return DropdownMenuItem(value: items, child: Text(items));
                   }).toList(),
                   onChanged: (String newValue) {
                     setState(() {
-                      dropdownvalue = newValue;
+                      dropdownAnimalType = newValue;
+                    });
+                  },
+                ),
+
+                const SizedBox(height: 24),
+                Text(
+                  "Advert Type",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+
+                DropdownButton<String>(
+                  value: dropdownAdvertType,
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  items: advertTypes.map((String items) {
+                    return DropdownMenuItem(value: items, child: Text(items));
+                  }).toList(),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownAdvertType = newValue;
                     });
                   },
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
-                  label: 'Animal name',
-                  text: this.animalName.text,
-                  onChanged: (animalName) {},
+                  label: 'Pet name',
+                  controller: this.petName,
+                  onChanged: (petName) {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Description',
-                  text: this.description.text,
+                  controller: this.description,
                   maxLines: 5,
                   onChanged: (description) {},
                 ),
                 SizedBox(
                   height: 50,
                 ),
-                saveUserProfileButton(),
+                saveAdvertButton(),
               ],
             )
           ],
@@ -155,6 +181,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
       ),
     );
   }
+
 
   Widget myAppBar() {
     return AppBar(
@@ -175,7 +202,8 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
     );
   }
 
-  Widget saveUserProfileButton() {
+  Widget saveAdvertButton() {
+    LostForm lostForm = LostForm();
     return Container(
       width: 100.0,
       height: 35.0,
@@ -193,7 +221,18 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
           ),
         ),
         onPressed: () {
-          //  TODO
+          lostForm.fullName = fullName.text;
+          lostForm.petType = dropdownAnimalType;
+          lostForm.advertType = dropdownAdvertType;
+          lostForm.petName = petName.text;
+          lostForm.description = description.text;
+          lostForm.email = '';
+          lostForm.phone = '';
+          lostForm.userId = 0;
+          lostForm.userName = '';
+
+          httpService.createLostForm(lostForm);
+
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => AdvertScreen())

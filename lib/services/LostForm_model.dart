@@ -9,16 +9,29 @@ import 'package:json_annotation/json_annotation.dart';
 
 // @JsonSerializable()
 class LostForm {
-  final String userName;
-  final int id;
-  final String phone;
-  final String email;
+   String userName;
+   int id;
+   String phone;
+   String email;
+   int userId;
+
+   String fullName;
+   String petType;
+   String advertType;
+   String petName;
+   String description;
 
   LostForm({
     @required this.userName,
     @required this.id,
     @required this.phone,
     @required this.email,
+    @required this.userId,
+    @required this.fullName,
+    @required this.petType,
+    @required this.advertType,
+    @required this.petName,
+    @required this.description,
   });
 
   factory LostForm.fromJson(Map<String, dynamic> json) {
@@ -27,6 +40,12 @@ class LostForm {
       id: json['id'] as int,
       phone: json['phone'] as String,
       email: json['email'] as String,
+      userId: json['userId'] as int,
+      fullName: json['fullName'] as String,
+      petType: json['petType'] as String,
+      advertType: json['advertType'] as String,
+      petName: json['petName'] as String,
+      description: json['description'] as String
     );
   }
 
@@ -36,6 +55,12 @@ class LostForm {
     'id': id.toString(),
     'phone': phone,
     'email': email,
+    'userId': userId,
+    'fullName': fullName,
+    'petType': petType,
+    'advertType': advertType,
+    'petName': petName,
+    'description': description,
   };
 
 }
