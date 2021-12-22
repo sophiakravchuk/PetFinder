@@ -1,9 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_event.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_state.dart';
+import 'package:lost_animal/services/UserForm.dart';
+
+import '../../local_storage.dart';
 
 class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
   PersonalInfoBloc() : super(PersonalInfoInitial());
+
+  final LocalStorage storage = LocalStorage();
 
   @override
   Stream<PersonalInfoState> mapEventToState(PersonalInfoEvent event) async* {
@@ -14,8 +21,9 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
 
   Stream<PersonalInfoState> _mapPersonalInfoLoad(
       PersonalInfoLoad event) async* {
-    //TODO: add repository or just api request to get user info
+    String info = await storage.getUserInfo();
+    UserForm userForm = UserForm.fromJson(jsonDecode(info));
     yield PersonalInfoLoaded(
-        username: "Julia", phoneNumber: "066", mail: "julia@gmail.com");
+        username: userForm.userName, phoneNumber: userForm.phone, mail: userForm.email);
   }
 }

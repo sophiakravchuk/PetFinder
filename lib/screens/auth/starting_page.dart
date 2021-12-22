@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lost_animal/blocs/start_bloc/start_bloc.dart';
+import 'package:lost_animal/blocs/start_bloc/start_event.dart';
+import 'package:lost_animal/blocs/start_bloc/start_state.dart';
 import 'package:lost_animal/screens/auth/log_in_page.dart';
 import 'package:lost_animal/screens/auth/sing_up_page.dart';
-
+import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
+import '../../local_storage.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key key}) : super(key: key);
@@ -16,17 +21,39 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
 
+  LocalStorage storage;
+  bool register;
+
   @override
   void initState() {
+    BlocProvider.of<StartBloc>(context).add(RegisterInfoLoad());
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
         designSize: DesignConfig.size, allowFontScaling: true);
-    return authFirstPage();
+    return BlocListener<StartBloc, StartState>(
+        listener: (BuildContext context, StartState state) {
+          if (state is RegisterInfoLoaded) {
+            this.register = state.registered;
+          }
+          if (register == null) {
+            return Center(child: loadingCircle());
+          } else if (register == true) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TabsBarScreen(),
+              ),
+            );
+          } else {
+            return authFirstPage();
+          }
+        },
+        child: Center(child: loadingCircle())
+    );
   }
 
   Widget authFirstPage() {
@@ -130,5 +157,9 @@ class _StartScreenState extends State<StartScreen> {
       );
   }
 
+  Widget loadingCircle() {
+    Widget indicator = CupertinoActivityIndicator();
+    return indicator;
+  }
 }
 

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:lost_animal/services/LostForm_model.dart';
 
 abstract class AdventListState extends Equatable {
   const AdventListState();
@@ -10,7 +11,7 @@ abstract class AdventListState extends Equatable {
 class AdventListInitial extends AdventListState {}
 
 class AdventListLoaded extends AdventListState {
-  final List<Map> adventList;
+  final List<LostForm> adventList;
 
   AdventListLoaded({this.adventList});
 

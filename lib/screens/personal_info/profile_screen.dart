@@ -8,6 +8,7 @@ import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_state.dart';
 import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
 
+import '../../local_storage.dart';
 import '../../services/LostForm_model.dart';
 import '../../services/http_services.dart';
 
@@ -118,8 +119,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 50.h,
                     ),
-
-                    saveUserProfileButton(),
                   ],
                 )
               ],
@@ -137,16 +136,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: 200,
           height: 55,
           child: WillPopScope(
-            child: TextField(
+            child: Text(
+              valueController.text,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w400,
                 fontSize: 18.sp,
               ),
-              controller: valueController,
-              onSubmitted: (value) {
-                valueController.text = value;
-              },
             ),
           ),
         ),
@@ -154,43 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget saveUserProfileButton() {
-    return Container(
-      width: 100.0.w,
-      height: 35.0.h,
-      child: FloatingActionButton(
-        heroTag: "save_user_button",
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: Text(
-          'Save',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 18.sp,
-          ),
-        ),
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AdvertListScreen()));
-        //  TODO
-          LostForm lf = LostForm(
-            userName: "j",
-            id: 2,
-            email: 'k',
-            phone: "90",
-          );
-          // httpService.createLostForm(lf);
-          List<LostForm> res = httpService.getLostForms() as List<LostForm>;
-          print(res[0].toJson().toString());
 
-        },
-      ),
-    );
-  }
 
 
 }

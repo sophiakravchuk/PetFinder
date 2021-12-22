@@ -1,17 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lost_animal/services/LostForm_model.dart';
 
-// // "fullName": "Julia Pochynok",
-// // "phoneNumber": "111111111",
-// // "mail": "julia@gmail.com",
-// // "animal": "bunny",
-// // "animalName": "Umu",
-// "description": "Really cool bunny",
-// "imagePath": null,
 
 class AdventPreview extends StatelessWidget {
-  final Map advent;
+  final LostForm advent;
 
   const AdventPreview({Key key, @required this.advent})
       : super(key: key);
@@ -20,7 +14,6 @@ class AdventPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //  TODO: add navigation
         print("on preview");
       },
       child: Container(
@@ -64,11 +57,13 @@ class AdventPreview extends StatelessWidget {
 
 
   //TODO: test, idk if this works
-  Widget adventPreviewImage(Map advent) {
+  Widget adventPreviewImage(LostForm advent) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
-      child: advent["imagePath"] == null
-          ? Container(
+      // child: advent["imagePath"] == null
+      child:
+          // ?
+      Container(
         width: 80.w,
         height: 80.w,
         decoration: BoxDecoration(
@@ -78,19 +73,20 @@ class AdventPreview extends StatelessWidget {
         ),
         child: Image.asset('assets/images/default.png'),
       )
-          : Image.network(
-        advent["imagePath"],
-        width: 80.w,
-        height: 80.w,
-        fit: BoxFit.cover,
-      ),
+      //     : Image.network(
+      //   // advent["imagePath"],
+      //   "lalala",
+      //   width: 80.w,
+      //   height: 80.w,
+      //   fit: BoxFit.cover,
+      // ),
     );
   }
 
 
   Widget _title() =>
       Text(
-        advent["animalName"],
+        advent.petName,
         style: TextStyle(
           color: Colors.black,
           fontSize: 19.sp,
@@ -103,7 +99,7 @@ class AdventPreview extends StatelessWidget {
 
   Widget _animalType() =>
       Text(
-        advent["animal"],
+        advent.petType,
         style: TextStyle(
           color: Colors.black54,
           fontSize: 14.sp,
@@ -116,7 +112,7 @@ class AdventPreview extends StatelessWidget {
 
   Widget _advertOwner() =>
       Text(
-        "author: " + advent["fullName"],
+        "author: " + advent.fullName,
         style: TextStyle(
           color: Colors.black54,
           fontSize: 12.sp,

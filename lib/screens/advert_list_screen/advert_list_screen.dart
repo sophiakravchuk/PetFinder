@@ -6,6 +6,7 @@ import 'package:lost_animal/blocs/advert_list_bloc/advert_list_bloc.dart';
 import 'package:lost_animal/blocs/advert_list_bloc/advert_list_event.dart';
 import 'package:lost_animal/blocs/advert_list_bloc/advert_list_state.dart';
 import 'package:lost_animal/screens/advert_list_screen/advent_preview.dart';
+import 'package:lost_animal/services/LostForm_model.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
 
 import '../../constants.dart';
@@ -18,7 +19,7 @@ class AdvertListScreen extends StatefulWidget {
 }
 
 class _AdvertListScreenState extends State<AdvertListScreen> {
-  List<Map> adventList = [];
+  List<LostForm> adventList = [];
   bool myCheckboxValue = false;
 
   @override
@@ -61,7 +62,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
         }
   }
 
-  Widget advertListWidget(List<Map> list) {
+  Widget advertListWidget(List<LostForm> list) {
     return Column(
         children: <Widget>[
           _checkbox(),

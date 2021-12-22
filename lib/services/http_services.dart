@@ -12,16 +12,18 @@ class HttpService {
 
 
   Future<List<LostForm>> getLostForms() async {
+    var headers = {
+      'content-type': "application/json",
+      'x-apikey': "d4815e122853326969ff62e32e10c377c8212",
+      'cache-control': "no-cache"
+    };
+    _dio.options.headers = headers;
+
     Response res = await _dio.get('$lostFormsURL/forms');
 
     if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.data);
-
-      List<LostForm> lostForms = body
-          .map(
-            (dynamic item) => LostForm.fromJson(item),
-      )
-          .toList();
+      final responseJson = res.data;
+      List<LostForm> lostForms = List.from(responseJson.map((m) => LostForm.fromJson(m)));
 
       return lostForms;
     } else {

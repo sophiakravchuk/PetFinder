@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +15,7 @@ import 'package:lost_animal/widgets/tabsbar.dart';
 
 
 import '../../constants.dart';
+import '../../local_storage.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key key}) : super(key: key);
@@ -26,6 +29,9 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController pass = TextEditingController();
   int userID;
+
+  LocalStorage storage = LocalStorage();
+
   @override
   void initState() {
     BlocProvider.of<AuthLogInBloc>(context).add(AuthLogInEnter());
@@ -119,10 +125,12 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+
   Future<int> getUserID() async {
     List<UserForm> users = await httpService.getUserForms();
     for (int i = 0; i < users.length; i ++){
       if (users[i].email == email.text && users[i].pass == pass.text){
+        storage.setUserInfo(jsonEncode(users[i].toJson()));
         return users[i].id;
       }
     }
