@@ -12,14 +12,16 @@ class AdventListInitial extends AdventListState {}
 
 class AdventListLoaded extends AdventListState {
   final List<LostForm> adventList;
+  final List<LostForm> adventListMy;
 
-  AdventListLoaded({this.adventList});
+  AdventListLoaded({this.adventList, this.adventListMy});
 
-  AdventListLoaded copyWith({List<Map> adventList}) {
+  AdventListLoaded copyWith({List<Map> adventList, List<Map> adventListMy}) {
     return AdventListLoaded(
-        adventList: adventList ?? this.adventList);
+        adventList: adventList ?? this.adventList,
+        adventListMy: adventListMy ?? this.adventListMy);
   }
 
   @override
-  List<Object> get props => [adventList];
+  List<Object> get props => [adventList, adventListMy];
 }

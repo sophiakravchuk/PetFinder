@@ -56,6 +56,28 @@ class _StartScreenState extends State<StartScreen> {
     );
   }
 
+  Widget authLoadPage() {
+    return Scaffold(
+      appBar: myAppBar(),
+      body: SafeArea(
+        child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 250),
+            child: ListView(
+              children: [
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Center(child: loadingCircle())
+                    ]
+                )
+              ],
+            )
+        ),
+      ),
+    );
+  }
+
   Widget authFirstPage() {
     return Scaffold(
       appBar: myAppBar(),

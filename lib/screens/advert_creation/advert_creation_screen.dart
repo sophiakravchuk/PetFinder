@@ -236,7 +236,14 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
 
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AdvertScreen())
+              MaterialPageRoute(builder: (context) => AdvertScreen(
+                authorName: fullName.text,
+                phoneNumber: '',
+                mail: '',
+                animalType: dropdownAnimalType,
+                animalName: petName.text,
+                description: description.text,
+              ))
           );
         },
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
 
 
@@ -15,6 +16,16 @@ class AdventPreview extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("on preview");
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AdvertScreen(
+              authorName: advent.fullName,
+              phoneNumber: advent.phone,
+              mail: advent.email,
+              animalType: advent.petType,
+              animalName: advent.petName,
+              description: advent.description,
+            )));
       },
       child: Container(
         width: 367.w,
@@ -31,6 +42,7 @@ class AdventPreview extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               adventPreviewImage(advent),
               SizedBox(width: 20.w),
@@ -50,6 +62,17 @@ class AdventPreview extends StatelessWidget {
                 ],
               ),
               SizedBox(width: 20.w),
+              IconButton(
+                alignment: Alignment.topRight,
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                //  TODO:on press delete
+                },
+                iconSize: 30.sp,
+              ),
             ],
           )
         ],
@@ -59,20 +82,20 @@ class AdventPreview extends StatelessWidget {
   //TODO: test, idk if this works
   Widget adventPreviewImage(LostForm advent) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      // child: advent["imagePath"] == null
-      child:
-          // ?
-      Container(
-        width: 80.w,
-        height: 80.w,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.teal, width: 1.5),
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-        ),
-        child: Image.asset('assets/images/default.png'),
-      )
+        borderRadius: BorderRadius.circular(5),
+        // child: advent["imagePath"] == null
+        child:
+        // ?
+        Container(
+          width: 80.w,
+          height: 80.w,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.teal, width: 1.5),
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.white,
+          ),
+          child: Image.asset('assets/images/default.png'),
+        )
       //     : Image.network(
       //   // advent["imagePath"],
       //   "lalala",

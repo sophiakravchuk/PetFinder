@@ -20,6 +20,7 @@ class AdvertListScreen extends StatefulWidget {
 
 class _AdvertListScreenState extends State<AdvertListScreen> {
   List<LostForm> adventList = [];
+  List<LostForm> adventListMy = [];
   bool myCheckboxValue = false;
 
   @override
@@ -36,6 +37,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
         builder: (context, state) {
           if (state is AdventListLoaded) {
             this.adventList = state.adventList;
+            this.adventListMy = state.adventListMy;
           }
           return body();
         });
@@ -54,6 +56,11 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
 
   Widget advertList() {
       if (this.adventList.isNotEmpty) {
+          if (myCheckboxValue) {
+            return advertListWidget(
+              this.adventListMy,
+            );
+          }
            return advertListWidget(
                 this.adventList,
               );

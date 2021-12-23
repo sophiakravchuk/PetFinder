@@ -10,7 +10,16 @@ import 'package:lost_animal/widgets/text_field_widget.dart';
 import '../../constants.dart';
 
 class AdvertScreen extends StatefulWidget {
-  const AdvertScreen({Key key}) : super(key: key);
+  final String authorName;
+  final String phoneNumber;
+  final String mail;
+  final String animalType;
+  final String animalName;
+  final String description;
+
+  const AdvertScreen({Key key, @required this.authorName, @required this.phoneNumber,
+                      @required this.mail, @required this.animalType,
+                      @required this.animalName, @required this.description}) : super(key: key);
 
   @override
   _AdvertScreenState createState() => _AdvertScreenState();
@@ -94,7 +103,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  this.fullname.text,
+                  widget.authorName,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -113,7 +122,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '48774784348',
+                  widget.phoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -132,7 +141,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'sdss@sfvd.com',
+                  widget.mail,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -151,7 +160,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'cat',
+                  widget.animalType,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -170,7 +179,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Marsik',
+                  widget.animalName,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -189,7 +198,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'we wdjw  k;dwekdnwekdwdwdaldjasld dvsdvsvsve wdjw  k;dwekdnwekdwdwdaldjasld',
+                  widget.description,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
