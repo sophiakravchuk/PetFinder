@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -84,8 +86,7 @@ class AdventPreview extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.circular(5),
         // child: advent["imagePath"] == null
-        child:
-        // ?
+        child: advent.image_bin == null ?
         Container(
           width: 80.w,
           height: 80.w,
@@ -96,13 +97,11 @@ class AdventPreview extends StatelessWidget {
           ),
           child: Image.asset('assets/images/default.png'),
         )
-      //     : Image.network(
-      //   // advent["imagePath"],
-      //   "lalala",
-      //   width: 80.w,
-      //   height: 80.w,
-      //   fit: BoxFit.cover,
-      // ),
+            : Image.memory(base64Decode(advent.image_bin),
+          width: 80.w,
+          height: 80.w,
+          fit: BoxFit.cover, )
+
     );
   }
 

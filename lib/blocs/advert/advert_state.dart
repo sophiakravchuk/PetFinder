@@ -16,25 +16,29 @@ class AdvertCreated extends AdvertState {
   final String animal;
   final String animalName;
   final String description;
-  final String imagePath;
+  final String image;
+  final int userId;
 
   AdvertCreated(
       {this.fullName,
-      this.phoneNumber,
-      this.mail,
-      this.animal,
-      this.animalName,
-      this.description,
-      this.imagePath});
+        this.phoneNumber,
+        this.mail,
+        this.animal,
+        this.animalName,
+        this.description,
+        this.image,
+        this.userId,
+      });
 
   AdvertCreated copyWith(
       {String username,
-      String phoneNumber,
-      String mail,
-      String animal,
-      String animalName,
-      String description,
-      String imagePath}) {
+        String phoneNumber,
+        String mail,
+        String animal,
+        String animalName,
+        String description,
+        String image,
+        int userId}) {
     return AdvertCreated(
         fullName: fullName ?? this.fullName,
         phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -42,12 +46,13 @@ class AdvertCreated extends AdvertState {
         animalName: animalName ?? this.animalName,
         animal: animal ?? this.animal,
         description: description ?? this.description,
-        imagePath: imagePath ?? this.imagePath);
+        image: image ?? this.image,
+        userId: userId ?? this.userId);
   }
 
   @override
   List<Object> get props =>
-      [fullName, phoneNumber, mail, animal, animalName, description, imagePath];
+      [fullName, phoneNumber, mail, animal, animalName, description, image, userId];
 }
 
 class AdvertLoaded extends AdvertState {
@@ -57,25 +62,28 @@ class AdvertLoaded extends AdvertState {
   final String animal;
   final String animalName;
   final String description;
-  final String imagePath;
+  final String image;
+  final int userId;
 
   AdvertLoaded(
       {this.fullName,
-      this.phoneNumber,
-      this.mail,
-      this.animal,
-      this.animalName,
-      this.description,
-      this.imagePath});
+        this.phoneNumber,
+        this.mail,
+        this.animal,
+        this.animalName,
+        this.description,
+        this.image,
+        this.userId});
 
   AdvertLoaded copyWith(
       {String username,
-      String phoneNumber,
-      String mail,
-      String animal,
-      String animalName,
-      String description,
-      String imagePath}) {
+        String phoneNumber,
+        String mail,
+        String animal,
+        String animalName,
+        String description,
+        String image,
+        int userId}) {
     return AdvertLoaded(
         fullName: fullName ?? this.fullName,
         phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -83,10 +91,11 @@ class AdvertLoaded extends AdvertState {
         animalName: animalName ?? this.animalName,
         animal: animal ?? this.animal,
         description: description ?? this.description,
-        imagePath: imagePath ?? this.imagePath);
+        image: image ?? this.image,
+        userId: userId ?? this.userId);
   }
 
   @override
   List<Object> get props =>
-      [fullName, phoneNumber, mail, animal, animalName, description, imagePath];
+      [fullName, phoneNumber, mail, animal, animalName, description, image, userId];
 }

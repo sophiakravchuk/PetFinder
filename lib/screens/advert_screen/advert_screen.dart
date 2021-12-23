@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +75,6 @@ class _AdvertScreenState extends State<AdvertScreen> {
         this.animalName = state.animalName;
         this.animal = state.animal;
         this.description = state.description;
-        this.imagePath = state.imagePath;
       }
       return advertCreation();
     });
@@ -259,16 +260,16 @@ class _AdvertScreenState extends State<AdvertScreen> {
 
   Widget buildImage() {
     return Container(
-      child: Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: NetworkImage(
-              'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80'),
-          fit: BoxFit.cover,
-          width: 250,
-          height: 250,
-        ),
-      ),
+      child:  Material(
+      color: Colors.transparent,
+      // child: Image.memory(base64Decode(),
+      //   fit: BoxFit.cover,
+      //   width: 250,
+      //   height: 250,
+      // )
+
+    ),
+
     );
   }
 }

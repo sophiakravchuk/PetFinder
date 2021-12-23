@@ -29,7 +29,7 @@ class AdventListBloc extends Bloc<AdventListEvent, AdventListState> {
     List<LostForm> advertList = await httpService.getLostForms();
     String info = await storage.getUserInfo();
     // String info1 = await storage.removeUserInfo();
-    UserForm userForm = UserForm.fromJson(jsonDecode(info));
+    UserForm userForm = UserForm.fromJsonStorage(jsonDecode(info));
     for (LostForm advert in advertList) {
       if (advert.userId == userForm.id) {
         advertListMy.add(advert);

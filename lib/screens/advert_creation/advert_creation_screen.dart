@@ -1,13 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lost_animal/blocs/advert/advert_bloc.dart';
 import 'package:lost_animal/blocs/advert/advert_event.dart';
 import 'package:lost_animal/blocs/advert/advert_state.dart';
+import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
 import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
 import 'package:lost_animal/services/http_services.dart';
+import 'package:lost_animal/widgets/tabsbar.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
 
 import '../../constants.dart';
@@ -23,12 +28,16 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
   final TextEditingController fullName = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController mail = TextEditingController();
-  // final TextEditingController animal = TextEditingController();
   final TextEditingController petName = TextEditingController();
   final TextEditingController description = TextEditingController();
+  final TextEditingController userId = TextEditingController();
+
+
   HttpService httpService = HttpService();
 
-  String imagePath = '';
+  File _image;
+  String base64Image;
+
 
   String dropdownAnimalType = 'Dog';
   List<String> animalTypes = ['Dog', 'Cat', 'Rabbit', 'Other'];
@@ -49,7 +58,6 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
     mail.dispose();
     petName.dispose();
     description.dispose();
-    // imagePath.dispose();
     super.dispose();
   }
 
@@ -59,13 +67,12 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
         designSize: DesignConfig.size, allowFontScaling: true);
     return BlocBuilder<AdvertBloc, AdvertState>(builder: (context, state) {
       if (state is AdvertCreated) {
-        this.fullName.text = state.fullName;
+        // this.fullName.text = state.fullName;
         this.phoneNumber.text = state.phoneNumber;
         this.mail.text = state.mail;
         this.petName.text = state.animalName;
-        // this.animal.text = state.animal;
         this.description.text = state.description;
-        this.imagePath = state.imagePath;
+        this.userId.text = state.userId.toString();
       }
       return advertCreation();
     });
@@ -81,6 +88,8 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
               physics: BouncingScrollPhysics(),
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Stack(
                       children: [
@@ -92,15 +101,18 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                             child: Container(
                                 color: Colors.blue,
                                 child: IconButton(
-                                  icon: Icon(Icons.edit),
+                                  icon: Icon(Icons.camera_alt),
                                   color: Colors.white,
                                   iconSize: 20,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _showPicker(context);
+                                  },
                                 )),
                           ),
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 24),
                     TextFieldWidget(
                       label: 'Full name',
@@ -110,8 +122,8 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                     const SizedBox(height: 24),
                     TextFieldWidget(
                       label: 'Email',
-                      text: this.mail.text,
                       controller: this.mail,
+                      text: this.mail.text,
                       onChanged: (mail) {},
                     ),
                     const SizedBox(height: 24),
@@ -122,6 +134,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                       onChanged: (phoneNumber) {},
                     ),
                     const SizedBox(height: 24),
+
                     Text(
                       "Pet",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -184,6 +197,88 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
   }
 
 
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+
+
+  Widget buildImage(){
+    return GestureDetector(
+      child: Container(
+        width: 200,
+        height: 200,
+        decoration: BoxDecoration(
+            color: Colors.grey[200]),
+        child: _image != null
+            ? Image.file(
+          _image,
+          width: 100.0,
+          height: 100.0,
+          fit: BoxFit.fitHeight,
+        )
+            : Container(
+          decoration: BoxDecoration(
+              color: Colors.grey[200]),
+          width: 100,
+          height: 100,
+          child: Icon(
+            Icons.camera_alt,
+            color: Colors.grey[800],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  _imgFromCamera() async {
+    File image = (await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    ));
+    setState(() {
+      this._image = image;
+    });
+  }
+
+
+  _imgFromGallery() async {
+    File image = (await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50
+    ));
+    setState(() {
+      this._image = image;
+    });
+  }
+
   Widget myAppBar() {
     return AppBar(
       title: Padding(
@@ -229,42 +324,27 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
           lostForm.description = description.text;
           lostForm.email = mail.text;
           lostForm.phone = phoneNumber.text;
-          lostForm.userId = 0;
-          lostForm.userName = '';
+          lostForm.userId = int.parse(userId.text);
+
+          if(this._image != null){
+            List<int> imageBytes = this._image.readAsBytesSync();
+            this.base64Image = base64Encode(imageBytes);
+            lostForm.image_bin = this.base64Image;
+          } else {
+            lostForm.image_bin = '';
+          }
+
 
           httpService.createLostForm(lostForm);
 
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AdvertScreen(
-                authorName: fullName.text,
-                phoneNumber: '',
-                mail: '',
-                animalType: dropdownAnimalType,
-                animalName: petName.text,
-                description: description.text,
-              ))
+              MaterialPageRoute(builder: (context) => AdvertListScreen())
           );
         },
       ),
     );
   }
 
-  Widget buildImage() {
-    final image = NetworkImage(
-        'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80');
 
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: image,
-          // image: NetworkImage(this.imagePath),
-          fit: BoxFit.cover,
-          width: 128,
-          height: 128,
-        ),
-      ),
-    );
-  }
 }

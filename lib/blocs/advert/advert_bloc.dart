@@ -12,23 +12,22 @@ class AdvertBloc extends Bloc<AdvertEvent, AdvertState> {
   @override
   Stream<AdvertState> mapEventToState(AdvertEvent event) async* {
     if (event is AdvertCreation) {
-      yield* _mapPersonalInfoLoad(event);
+      yield* _mapAdvertCreate(event);
     }
     if (event is AdvertLoad) {
       yield* _mapAdvertLoad(event);
     }
   }
 
-  Stream<AdvertState> _mapPersonalInfoLoad(AdvertCreation event) async* {
+  Stream<AdvertState> _mapAdvertCreate(AdvertCreation event) async* {
     String info = await storage.getUserInfo();
     UserForm userForm = UserForm.fromJsonStorage(jsonDecode(info));
     //TODO: add repository or just api request to get user info
     yield AdvertCreated(
-      fullName: "",
       phoneNumber: userForm.phone,
       mail: userForm.email,
-      imagePath:
-      'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
+      userId: userForm.id,
+
     );
   }
 
@@ -38,8 +37,9 @@ class AdvertBloc extends Bloc<AdvertEvent, AdvertState> {
       fullName: "Julia",
       phoneNumber: "066",
       mail: "julia@gmail.com",
-      imagePath:
-          'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
+      // imagePath:
+      //     'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
     );
   }
+
 }

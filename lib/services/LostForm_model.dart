@@ -3,18 +3,19 @@ import 'package:json_annotation/json_annotation.dart';
 
 
 class LostForm {
-   String userName;
-   int id;
-   String phone;
-   String email;
-   int userId;
-   String internal_id;
+  String userName;
+  int id;
+  String phone;
+  String email;
+  int userId;
+  String internal_id;
 
-   String fullName;
-   String petType;
-   String advertType;
-   String petName;
-   String description;
+  String fullName;
+  String petType;
+  String advertType;
+  String petName;
+  String description;
+  String image_bin;
 
   LostForm({
     @required this.userName,
@@ -28,6 +29,7 @@ class LostForm {
     @required this.petName,
     @required this.description,
     @required this.internal_id,
+    @required this.image_bin,
   });
 
   factory LostForm.fromJson(Map<String, dynamic> json) {
@@ -42,7 +44,8 @@ class LostForm {
       advertType: json['advertType'] as String,
       petName: json['petName'] as String,
       description: json['description'] as String,
-      internal_id: json['_id'] as String
+      internal_id: json['_id'] as String,
+      image_bin: json['image_bin'] as String,
     );
   }
 
@@ -59,6 +62,7 @@ class LostForm {
     'petName': petName,
     'description': description,
     '_id': internal_id,
+    'image_bin': image_bin,
   };
 
 }
