@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'package:http/http.dart' as http;
 import 'LostForm_model.dart';
 import 'UserForm.dart';
 import 'package:dio/dio.dart';
@@ -43,24 +42,9 @@ class HttpService {
 
     Response res = await _dio.get('$lostFormsURL/user-forms');
     if (res.statusCode == 200) {
-      // List<dynamic> body = [];
-      // for (int i = 0; i < res.data.length; i++) {
-      //   var dataItem = jsonDecode(res.data[i]);
-      //   body.add(dataItem);
-      // }
-      // List<String> body = jsonDecode(res.data);
-
         final responseJson = res.data;
         List<UserForm> userForms = List.from(responseJson.map((m) => UserForm.fromJson(m)));
-
-
-
-      // List<UserForm> userForms = res.data
-      //     .map(
-      //       (dynamic item) => UserForm.fromJson(item),
-      // )
-      //     .toList();
-       return userForms;
+        return userForms;
 
 
     } else {
@@ -68,22 +52,32 @@ class HttpService {
     }
   }
 
-  // Future<void> deleteLostForm(int id) async {
-  //   var headers = {
-  //     'content-type': "application/json",
-  //     'x-apikey': "d4815e122853326969ff62e32e10c377c8212",
-  //     'cache-control': "no-cache"
-  //   };
-  //
-  //   _dio.options.headers = headers;
-  //   Response res = await _dio.delete("$lostFormsURL/forms/$id");
-  //
-  //   if (res.statusCode == 200) {
-  //     print("DELETED");
-  //   } else {
-  //     throw "Unable to delete LostForm.";
-  //   }
-  // }
+  Future<void> deleteLostForm(int id) async {
+    var headers = {
+      'content-type': "application/json",
+      'x-apikey': "d4815e122853326969ff62e32e10c377c8212",
+      'cache-control': "no-cache"
+    };
+
+    _dio.options.headers = headers;
+
+    List<LostForm> users = await this.getLostForms();
+    String _id;
+    for (int i = 0; i < users.length; i ++){
+      if (users[i].id == id){
+        _id = users[i].internal_id;
+      }
+    }
+
+
+    Response res = await _dio.delete("$lostFormsURL/forms/$_id");
+
+    if (res.statusCode == 200) {
+      print("DELETED");
+    } else {
+      throw "Unable to delete LostForm.";
+    }
+  }
 
   Future<void> createLostForm(LostForm lostForm) async {
 

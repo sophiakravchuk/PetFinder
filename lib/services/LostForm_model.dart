@@ -1,19 +1,14 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
-
-// part 'data.g.dart';
-
-// @JsonSerializable()
 class LostForm {
    String userName;
    int id;
    String phone;
    String email;
    int userId;
+   String internal_id;
 
    String fullName;
    String petType;
@@ -32,6 +27,7 @@ class LostForm {
     @required this.advertType,
     @required this.petName,
     @required this.description,
+    @required this.internal_id,
   });
 
   factory LostForm.fromJson(Map<String, dynamic> json) {
@@ -45,7 +41,8 @@ class LostForm {
       petType: json['petType'] as String,
       advertType: json['advertType'] as String,
       petName: json['petName'] as String,
-      description: json['description'] as String
+      description: json['description'] as String,
+      internal_id: json['_id'] as String
     );
   }
 
@@ -61,6 +58,7 @@ class LostForm {
     'advertType': advertType,
     'petName': petName,
     'description': description,
+    '_id': internal_id,
   };
 
 }
