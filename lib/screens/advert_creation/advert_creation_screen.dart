@@ -77,107 +77,108 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
       body: SafeArea(
         child: Container(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 32),
-          physics: BouncingScrollPhysics(),
-          children: [
-            Column(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              physics: BouncingScrollPhysics(),
               children: [
-                Stack(
+                Column(
                   children: [
-                    buildImage(),
-                    Positioned(
-                      bottom: 0,
-                      right: 4,
-                      child: ClipOval(
-                        child: Container(
-                            color: Colors.blue,
-                            child: IconButton(
-                              icon: Icon(Icons.edit),
-                              color: Colors.white,
-                              iconSize: 20,
-                              onPressed: () {},
-                            )),
-                      ),
+                    Stack(
+                      children: [
+                        buildImage(),
+                        Positioned(
+                          bottom: 0,
+                          right: 4,
+                          child: ClipOval(
+                            child: Container(
+                                color: Colors.blue,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit),
+                                  color: Colors.white,
+                                  iconSize: 20,
+                                  onPressed: () {},
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 24),
+                    TextFieldWidget(
+                      label: 'Full name',
+                      controller: this.fullName,
+                      onChanged: (fullname) {},
+                    ),
+                    const SizedBox(height: 24),
+                    TextFieldWidget(
+                      label: 'Email',
+                      text: this.mail.text,
+                      controller: this.mail,
+                      onChanged: (mail) {},
+                    ),
+                    const SizedBox(height: 24),
+                    TextFieldWidget(
+                      label: 'Phone number',
+                      text: this.phoneNumber.text,
+                      controller: this.phoneNumber,
+                      onChanged: (phoneNumber) {},
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      "Pet",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+
+                    DropdownButton<String>(
+                      value: dropdownAnimalType,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      items: animalTypes.map((String items) {
+                        return DropdownMenuItem(value: items, child: Text(items));
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownAnimalType = newValue;
+                        });
+                      },
+                    ),
+
+                    const SizedBox(height: 24),
+                    Text(
+                      "Advert Type",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+
+                    DropdownButton<String>(
+                      value: dropdownAdvertType,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      items: advertTypes.map((String items) {
+                        return DropdownMenuItem(value: items, child: Text(items));
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownAdvertType = newValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    TextFieldWidget(
+                      label: 'Pet name',
+                      controller: this.petName,
+                      onChanged: (petName) {},
+                    ),
+                    const SizedBox(height: 24),
+                    TextFieldWidget(
+                      label: 'Description',
+                      controller: this.description,
+                      maxLines: 5,
+                      onChanged: (description) {},
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    saveAdvertButton(),
                   ],
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Full name',
-                  controller: this.fullName,
-                  onChanged: (fullname) {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Email',
-                  text: this.mail.text,
-                  onChanged: (mail) {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Phone number',
-                  text: this.phoneNumber.text,
-                  controller: this.phoneNumber,
-                  onChanged: (phoneNumber) {},
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  "Pet",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-
-                DropdownButton<String>(
-                  value: dropdownAnimalType,
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  items: animalTypes.map((String items) {
-                    return DropdownMenuItem(value: items, child: Text(items));
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownAnimalType = newValue;
-                    });
-                  },
-                ),
-
-                const SizedBox(height: 24),
-                Text(
-                  "Advert Type",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-
-                DropdownButton<String>(
-                  value: dropdownAdvertType,
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  items: advertTypes.map((String items) {
-                    return DropdownMenuItem(value: items, child: Text(items));
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownAdvertType = newValue;
-                    });
-                  },
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Pet name',
-                  controller: this.petName,
-                  onChanged: (petName) {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Description',
-                  controller: this.description,
-                  maxLines: 5,
-                  onChanged: (description) {},
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                saveAdvertButton(),
+                )
               ],
-            )
-          ],
-        )),
+            )),
       ),
     );
   }
@@ -226,8 +227,8 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
           lostForm.advertType = dropdownAdvertType;
           lostForm.petName = petName.text;
           lostForm.description = description.text;
-          lostForm.email = '';
-          lostForm.phone = '';
+          lostForm.email = mail.text;
+          lostForm.phone = phoneNumber.text;
           lostForm.userId = 0;
           lostForm.userName = '';
 

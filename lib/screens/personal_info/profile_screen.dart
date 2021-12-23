@@ -6,6 +6,7 @@ import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_bloc.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_event.dart';
 import 'package:lost_animal/blocs/pesonalInfo_bloc/personalInfo_state.dart';
 import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
+import 'package:lost_animal/screens/auth/starting_page.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
 
 import '../../local_storage.dart';
@@ -52,13 +53,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         designSize: DesignConfig.size, allowFontScaling: true);
     return BlocBuilder<PersonalInfoBloc, PersonalInfoState>(
         builder: (context, state) {
-      if (state is PersonalInfoLoaded) {
-        this.username.text = state.username;
-        this.phoneNumber.text = state.phoneNumber;
-        this.mail.text = state.mail;
-      }
-      return personalInfo();
-    });
+          if (state is PersonalInfoLoaded) {
+            this.username.text = state.username;
+            this.phoneNumber.text = state.phoneNumber;
+            this.mail.text = state.mail;
+          }
+          return personalInfo();
+        });
   }
 
   Widget personalInfo() {
@@ -119,6 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 50.h,
                     ),
+                    _logOutButton()
                   ],
                 )
               ],
@@ -127,6 +129,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _logOutButton() {
+
+    return Container(
+      width: 200.0.w,
+      height: 55.0.h,
+      child: FloatingActionButton(
+        heroTag: "login_button",
+        backgroundColor: Colors.green,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+        child: Text(
+          'Log out',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 24.sp,
+          ),
+        ),
+        onPressed: () {
+          BlocProvider.of<PersonalInfoBloc>(context).add(PersonalInfoLogOut());
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => StartScreen(),
+            ),
+                (route) => false,
+          );
+        },
+      ),
+    );
+  }
 
   Widget infoFiled(valueController) {
     return Row(
@@ -149,9 +182,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ],
     );
   }
-
-
-
-
 }
 

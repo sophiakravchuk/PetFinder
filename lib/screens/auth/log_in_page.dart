@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypt/crypt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,7 @@ class _LogInScreenState extends State<LogInScreen> {
   HttpService httpService = HttpService();
   final TextEditingController email = TextEditingController();
   final TextEditingController pass = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   int userID;
 
   LocalStorage storage = LocalStorage();
@@ -60,59 +62,86 @@ class _LogInScreenState extends State<LogInScreen> {
 
   Widget authLogInPage() {
     return Scaffold(
-      appBar: myAppBar(),
-      body: SafeArea(
-        child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 140),
-            child: ListView(
-              children: [
-                Column(
+        appBar: myAppBar(),
+        body: SafeArea(
+          child:Form(
+            key: _formKey,
+            child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 140),
+                child: ListView(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25),
-                      child: Text(
-                        'Log into user account',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24.sp,
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25),
+                          child: Text(
+                            'Log into user account',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24.sp,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(35, 20, 35, 0),
-                      child: Text(
-                        'Fill in fields, providing personal information asked bellow to enter your user account.',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 18.sp,
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(35, 20, 35, 0),
+                          child: Text(
+                            'Fill in fields, providing personal information asked bellow to enter your user account.',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 18.sp,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    inputField("Personal information", "Enter your Email", TextInputType.text, false, email),
-                    inputField("Password","Enter your password here", TextInputType.visiblePassword, true, pass),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    _logInButton(),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        inputField("Personal information", "Enter your Email", TextInputType.text, false, email),
+                        inputField("Password","Enter your password here", TextInputType.visiblePassword, true, pass),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        _logInButton(),
+                      ],
+                    )
                   ],
-                )
-              ],
-            )),
-      ),
-    );
+                )),
+          ),
+        ));
   }
 
   Widget inputField(String label, String hint, TextInputType inputType, bool obscureFlag, TextEditingController control) {
     return Container(
       width: 300.0.w,
       height: 65.0.h,
-      child: TextField(
+      child: TextFormField(
         controller: control,
+        validator: (value) {
+          if (control == this.email) {
+            RegExp regExp = new RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+            if (value == null || value.isEmpty) {
+              return 'Please enter your email address';
+            }
+            else if (!regExp.hasMatch(value)) {
+              return 'Incorrect email';
+            }
+          }
+          else if (control == this.pass) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a password';
+            }
+            else if (value.length < 6 || value.length > 21) {
+              if (value.length < 6) {
+                return 'Too short password (must be 6-20)';
+              }
+              else {
+                return 'Too long password (must be 6-20)';
+              }
+            }
+          }
+          return null;
+        },
         keyboardType: inputType,
         obscureText: obscureFlag,
         decoration: InputDecoration(
@@ -120,7 +149,7 @@ class _LogInScreenState extends State<LogInScreen> {
           hintText: hint,
           labelText: label,
         ),
-        onChanged: (String value) {},
+        onChanged: (String inputValue) { return inputValue; },
       ),
     );
   }
@@ -129,7 +158,8 @@ class _LogInScreenState extends State<LogInScreen> {
   Future<int> getUserID() async {
     List<UserForm> users = await httpService.getUserForms();
     for (int i = 0; i < users.length; i ++){
-      if (users[i].email == email.text && users[i].pass == pass.text){
+      bool passHashMatch = Crypt(users[i].pass).match(pass.text);
+      if (users[i].email == email.text && passHashMatch){
         storage.setUserInfo(jsonEncode(users[i].toJson()));
         return users[i].id;
       }
@@ -140,34 +170,34 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget _logInButton() {
 
     return Container(
-      width: 200.0.w,
-      height: 55.0.h,
-      child: FloatingActionButton(
-        heroTag: "login_button",
-        backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: Text(
-          'Log in',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 24.sp,
-          ),
-        ),
-        onPressed: () async {
-          userID = await getUserID();
-          if (userID < 0) {
-            // ToDo: LogIn one more time + add userID to shared preferences
-          } else{
-            print("userID " + userID.toString());
-          }
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TabsBarScreen())
-          );
-        },
-      ),
+        width: 200.0.w,
+        height: 55.0.h,
+        child: ElevatedButton(
+            onPressed: () async {
+              if (_formKey.currentState.validate()) {
+                userID = await getUserID();
+                if (userID < 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Incorrect email or password')),
+                  );
+                }
+                else {
+                  print("userID " + userID.toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TabsBarScreen()));}}},
+            child: Text(
+              'Log in',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 24.sp,
+              ),
+            ),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF63B4FF))
+            )
+        )
     );
   }
 
@@ -180,14 +210,14 @@ class _LogInScreenState extends State<LogInScreen> {
           child: Text(
             'PetFinder',
             style: TextStyle(
-              color: Colors.black,
+              color: Color(0xFF000033),
               fontWeight: FontWeight.bold,
               fontSize: 25.sp,
             ),
           ),
         ),
         centerTitle: false,
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF63B4FF),
         elevation: 0,
       );
   }

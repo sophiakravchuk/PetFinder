@@ -13,6 +13,8 @@ import 'blocs/authsingup_bloc/authsingup_bloc.dart';
 import 'blocs/authlogin_bloc/authlogin_bloc.dart';
 import 'local_storage.dart';
 
+import 'screens/start/splashscreen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -40,15 +42,15 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         // home: register == 0 ? StartScreen() : TabsBarScreen(),
-        home: StartScreen(),
+        home: SplashScreen(),
         debugShowCheckedModeBanner: false,
       ),
       // ),
     );
   }
 
-  // _getRegistrationInfo() async {
-  //   var register = await storage.getUserInfo();
-  //   return register;
-  // }
+// _getRegistrationInfo() async {
+//   var register = await storage.getUserInfo();
+//   return register;
+// }
 }

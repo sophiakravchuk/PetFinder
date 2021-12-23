@@ -26,3 +26,20 @@ class PersonalInfoLoaded extends PersonalInfoState {
   @override
   List<Object> get props => [username, phoneNumber, mail];
 }
+class PersonalInfoLogOutDone extends PersonalInfoState {
+  final String username;
+  final String phoneNumber;
+  final String mail;
+
+  PersonalInfoLogOutDone({this.username, this.phoneNumber, this.mail});
+
+  PersonalInfoLogOutDone copyWith({String username, String phoneNumber, String mail}) {
+    return PersonalInfoLogOutDone(
+        username: username ?? this.username,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        mail: mail ?? this.mail);
+  }
+
+  @override
+  List<Object> get props => [username, phoneNumber, mail];
+}

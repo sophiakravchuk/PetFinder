@@ -8,3 +8,4 @@ abstract class PersonalInfoEvent extends Equatable {
 }
 
 class PersonalInfoLoad extends PersonalInfoEvent {}
+class PersonalInfoLogOut  extends PersonalInfoEvent {}

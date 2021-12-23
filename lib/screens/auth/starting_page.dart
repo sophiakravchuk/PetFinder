@@ -52,7 +52,7 @@ class _StartScreenState extends State<StartScreen> {
             return authFirstPage();
           }
         },
-        child: Center(child: loadingCircle())
+        child: authFirstPage()
     );
   }
 
@@ -101,8 +101,8 @@ class _StartScreenState extends State<StartScreen> {
         ),
         onPressed: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LogInScreen())
+              context,
+              MaterialPageRoute(builder: (context) => LogInScreen())
           );
         },
       ),
@@ -115,7 +115,7 @@ class _StartScreenState extends State<StartScreen> {
       height: 65.0.h,
       child: FloatingActionButton(
         heroTag: "signup_button",
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF000033),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: Text(
@@ -127,10 +127,10 @@ class _StartScreenState extends State<StartScreen> {
           ),
         ),
         onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SingUpScreen())
-            );
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SingUpScreen())
+          );
         },
       ),
     );
@@ -145,14 +145,14 @@ class _StartScreenState extends State<StartScreen> {
           child: Text(
             'PetFinder',
             style: TextStyle(
-              color: Colors.black,
+              color: Color(0xFF000033),
               fontWeight: FontWeight.bold,
               fontSize: 25.sp,
             ),
           ),
         ),
         centerTitle: false,
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF63B4FF),
         elevation: 0,
       );
   }

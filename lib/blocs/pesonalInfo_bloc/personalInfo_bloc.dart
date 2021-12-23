@@ -17,13 +17,22 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     if (event is PersonalInfoLoad) {
       yield* _mapPersonalInfoLoad(event);
     }
+    else if (event is PersonalInfoLogOut) {
+      yield* _mapPersonalInfoLogOut(event);
+    }
   }
 
   Stream<PersonalInfoState> _mapPersonalInfoLoad(
       PersonalInfoLoad event) async* {
     String info = await storage.getUserInfo();
-    UserForm userForm = UserForm.fromJson(jsonDecode(info));
+    UserForm userForm = UserForm.fromJsonStorage(jsonDecode(info));
     yield PersonalInfoLoaded(
         username: userForm.userName, phoneNumber: userForm.phone, mail: userForm.email);
+  }
+  Stream<PersonalInfoState> _mapPersonalInfoLogOut(
+      PersonalInfoLogOut event) async* {
+    storage.removeUserInfo();
+    yield PersonalInfoLogOutDone(
+        username: "", phoneNumber: "", mail: "");
   }
 }
