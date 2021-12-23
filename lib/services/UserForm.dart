@@ -1,13 +1,6 @@
-
-
 import 'package:flutter/foundation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 
-
-// part 'data.g.dart';
-
-// @JsonSerializable()
 class UserForm {
   String userName;
   int id;
