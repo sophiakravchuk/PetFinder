@@ -79,6 +79,10 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
               itemCount: list.length,
               itemBuilder: (context, index) {
                 if (list != null && list.length > 0) {
+                  bool my = false;
+                  if (this.adventListMy.contains(list[index])) {
+                      my = true;
+                  }
                   return Column(
                     children: [
                       SizedBox(
@@ -86,6 +90,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
                       ),
                       AdventPreview(
                         advent: list[index],
+                        my: my,
                       ),
                     ],
                   );

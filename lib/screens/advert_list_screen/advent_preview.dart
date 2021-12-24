@@ -9,15 +9,15 @@ import 'package:lost_animal/services/LostForm_model.dart';
 
 class AdventPreview extends StatelessWidget {
   final LostForm advent;
+  final bool my;
 
-  const AdventPreview({Key key, @required this.advent})
+  const AdventPreview({Key key, @required this.advent, @required this.my})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print("on preview");
         Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AdvertScreen(
@@ -44,7 +44,7 @@ class AdventPreview extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               adventPreviewImage(advent),
               SizedBox(width: 20.w),
@@ -64,17 +64,20 @@ class AdventPreview extends StatelessWidget {
                 ],
               ),
               SizedBox(width: 20.w),
-              IconButton(
-                alignment: Alignment.topRight,
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
+              if (my) ... [
+                Spacer(),
+                IconButton(
+                  alignment: Alignment.topRight,
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    //  TODO:on press delete
+                  },
+                  iconSize: 30.sp,
                 ),
-                onPressed: () {
-                //  TODO:on press delete
-                },
-                iconSize: 30.sp,
-              ),
+              ]
             ],
           )
         ],
@@ -86,7 +89,7 @@ class AdventPreview extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.circular(5),
         // child: advent["imagePath"] == null
-        child: advent.image_bin == null ?
+        child: (advent.image_bin == null || advent.image_bin == "") ?
         Container(
           width: 80.w,
           height: 80.w,
