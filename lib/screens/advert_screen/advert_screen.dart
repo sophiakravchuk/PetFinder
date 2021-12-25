@@ -57,7 +57,6 @@ class _AdvertScreenState extends State<AdvertScreen> {
   @override
   void dispose() {
     fullname.dispose();
-    print(fullname);
     // phoneNumber.dispose();
     // mail.dispose();
     // animalName.dispose();
@@ -90,6 +89,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
       appBar: myAppBar( 'Advert'),
       body: SafeArea(
         child: Container(
+            padding: const EdgeInsets.all(20),
             child: ListView(
           // padding: EdgeInsets.symmetric(horizontal: 32),
           physics: BouncingScrollPhysics(),
@@ -98,9 +98,6 @@ class _AdvertScreenState extends State<AdvertScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 15.h,
-                ),
                 buildImage(),
                 const SizedBox(height: 24),
                 Text(
