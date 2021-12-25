@@ -18,10 +18,12 @@ class AdvertScreen extends StatefulWidget {
   final String animalType;
   final String animalName;
   final String description;
+  final String image;
+
 
   const AdvertScreen({Key key, @required this.authorName, @required this.phoneNumber,
                       @required this.mail, @required this.animalType,
-                      @required this.animalName, @required this.description}) : super(key: key);
+                      @required this.animalName, @required this.description, @required this.image}) : super(key: key);
 
   @override
   _AdvertScreenState createState() => _AdvertScreenState();
@@ -34,7 +36,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
   String animal;
   String animalName;
   String description;
-  String imagePath = '';
+  String image;
 
   final TextEditingController fullname = TextEditingController();
   // final TextEditingController mail = TextEditingController();
@@ -75,6 +77,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
         this.animalName = state.animalName;
         this.animal = state.animal;
         this.description = state.description;
+        this.image = state.image;
       }
       return advertCreation();
     });
@@ -260,15 +263,25 @@ class _AdvertScreenState extends State<AdvertScreen> {
 
   Widget buildImage() {
     return Container(
-      child:  Material(
-      color: Colors.transparent,
-      // child: Image.memory(base64Decode(),
-      //   fit: BoxFit.cover,
-      //   width: 250,
-      //   height: 250,
-      // )
+        child:  Material(
+            color: Colors.transparent,
+            child: widget.image == null ?
+            Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.teal, width: 1.5),
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.white,
+              ),
+              child: Image.asset('assets/images/default.png'),
+            )
+                : Image.memory(base64Decode(widget.image),
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover, )
 
-    ),
+        )
 
     );
   }

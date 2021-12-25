@@ -27,6 +27,7 @@ class AdventPreview extends StatelessWidget {
               animalType: advent.petType,
               animalName: advent.petName,
               description: advent.description,
+              image: advent.image_bin,
             )));
       },
       child: Container(
