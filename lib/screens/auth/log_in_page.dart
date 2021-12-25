@@ -12,6 +12,7 @@ import 'package:lost_animal/blocs/authlogin_bloc/authlogin_bloc.dart';
 import 'package:lost_animal/blocs/authlogin_bloc/authlogin_state.dart';
 import 'package:lost_animal/services/UserForm.dart';
 import 'package:lost_animal/services/http_services.dart';
+import 'package:lost_animal/widgets/tabbar.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
 
@@ -186,7 +187,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   print("userID " + userID.toString());
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TabsBarScreen()));}}},
+                      MaterialPageRoute(builder: (context) => TabBarScreen()));}}},
             child: Text(
               'Log in',
               style: TextStyle(

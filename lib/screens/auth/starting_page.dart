@@ -8,6 +8,7 @@ import 'package:lost_animal/blocs/start_bloc/start_state.dart';
 import 'package:lost_animal/screens/auth/log_in_page.dart';
 import 'package:lost_animal/screens/auth/sing_up_page.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
+import 'package:lost_animal/widgets/tabbar.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
@@ -46,7 +47,7 @@ class _StartScreenState extends State<StartScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TabsBarScreen(),
+                builder: (context) => TabBarScreen(),
               ),
             );
           } else {
