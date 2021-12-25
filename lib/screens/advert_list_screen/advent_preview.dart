@@ -41,6 +41,7 @@ class AdventPreview extends StatelessWidget {
   }
 
   Widget _content(BuildContext context) =>
+
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,10 +66,13 @@ class AdventPreview extends StatelessWidget {
                   _advertOwner(),
                 ],
               ),
-              SizedBox(width: 20.w),
+              // SizedBox(width: 20.w),
+
               if (my) ... [
                 Spacer(),
+
                 IconButton(
+
                   alignment: Alignment.topRight,
                   icon: Icon(
                     Icons.delete,
@@ -77,9 +81,12 @@ class AdventPreview extends StatelessWidget {
                   onPressed: () {
                     HttpService httpService = HttpService();
                     httpService.deleteLostForm(advent.id);
+
                   },
+                  padding: EdgeInsets.all(0.0),
                   iconSize: 30.sp,
                 ),
+
               ]
             ],
           )
