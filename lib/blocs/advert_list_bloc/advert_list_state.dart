@@ -10,6 +10,8 @@ abstract class AdventListState extends Equatable {
 
 class AdventListInitial extends AdventListState {}
 
+class AdventListLoading extends AdventListState {}
+
 class AdventListLoaded extends AdventListState {
   final List<LostForm> adventList;
   final List<LostForm> adventListMy;

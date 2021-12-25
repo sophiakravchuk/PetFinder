@@ -20,6 +20,10 @@ class _TabBarScreenState extends State<TabBarScreen> {
 
   void _onItemTapped(int index) {
     setState(() {
+      _widgetOptions = <Widget>[
+        AdvertListScreen(),
+        AdvertCreationScreen(), ProfileScreen()
+      ];
       _selectedIndex = index;
     });
   }
@@ -35,6 +39,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xFF63B4FF),
+        // backgroundColor:  Color(0xFF000066),
         selectedItemColor: Color(0xFFE5EFF3),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

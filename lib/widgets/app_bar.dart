@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 Widget myAppBar(String title) {
   return
     AppBar(
+      automaticallyImplyLeading: false,
       title:
       Padding(
         padding: EdgeInsets.only(top: 15),

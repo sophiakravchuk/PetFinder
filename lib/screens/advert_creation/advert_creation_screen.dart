@@ -13,6 +13,7 @@ import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
 import 'package:lost_animal/services/http_services.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
+import 'package:lost_animal/widgets/tabbar.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
 
 import '../../constants.dart';
@@ -325,7 +326,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
 
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AdvertListScreen())
+              MaterialPageRoute(builder: (context) => TabBarScreen())
           );
         },
       ),

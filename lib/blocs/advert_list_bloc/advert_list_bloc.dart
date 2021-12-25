@@ -25,6 +25,7 @@ class AdventListBloc extends Bloc<AdventListEvent, AdventListState> {
 
   Stream<AdventListState> _mapAdventListLoad(
       AdventListLoad event) async* {
+    yield AdventListLoading();
     List<LostForm> advertListMy = [];
     List<LostForm> advertList = await httpService.getLostForms();
     String info = await storage.getUserInfo();

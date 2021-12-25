@@ -22,6 +22,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
   List<LostForm> adventList = [];
   List<LostForm> adventListMy = [];
   bool myCheckboxValue = false;
+  bool loading = false;
 
   @override
   void initState() {
@@ -33,29 +34,45 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
         designSize: DesignConfig.size, allowFontScaling: true);
-    return BlocBuilder<AdventListBloc, AdventListState>(
-        builder: (context, state) {
+    return BlocListener<AdventListBloc, AdventListState>(
+        listener: (context, state) {
           if (state is AdventListLoaded) {
-            this.adventList = state.adventList;
-            this.adventListMy = state.adventListMy;
+            setState(() {
+              this.adventList = state.adventList;
+              this.adventListMy = state.adventListMy;
+              this.loading = false;
+            });
           }
-          return body();
-        });
+          if (state is AdventListLoading) {
+            setState(() {
+              this.loading = true;
+            });
+          }
+        },
+        child: body(),
+    );
   }
 
   body() {
-    return Scaffold(
-      appBar: myAppBar("Advent List"),
-      body: SafeArea(
-        child: Container(
-            child: advertList()),
-      // child: _checkbox()),
+    return RefreshIndicator(
+      onRefresh: _pullRefresh,
+      child: Scaffold(
+        appBar: myAppBar("Advent List"),
+        body: SafeArea(
+          child: Container(
+              child: advertList()),
+          // child: _checkbox()),
+        ),
       ),
     );
   }
 
+  Future<void> _pullRefresh() async {
+    BlocProvider.of<AdventListBloc>(context).add(AdventListLoad());
+}
+
   Widget advertList() {
-      if (this.adventList.isNotEmpty) {
+      if (this.adventList.isNotEmpty && this.loading == false) {
           if (myCheckboxValue) {
             return advertListWidget(
               this.adventListMy,
