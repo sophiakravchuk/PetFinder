@@ -9,7 +9,6 @@ import 'package:lost_animal/screens/auth/log_in_page.dart';
 import 'package:lost_animal/screens/auth/sing_up_page.dart';
 import 'package:lost_animal/widgets/app_bar.dart';
 import 'package:lost_animal/widgets/tabbar.dart';
-import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
 import '../../local_storage.dart';

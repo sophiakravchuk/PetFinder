@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_animal/blocs/start_bloc/start_bloc.dart';
 import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
 import 'package:lost_animal/screens/personal_info/profile_screen.dart';
-import 'package:lost_animal/widgets/tabsbar.dart';
 import 'package:lost_animal/screens/auth/starting_page.dart';
 import 'blocs/advert/advert_bloc.dart';
 import 'blocs/advert/advert_state.dart';
