@@ -59,7 +59,7 @@ class _StartScreenState extends State<StartScreen> {
 
   Widget authLoadPage() {
     return Scaffold(
-      appBar: myAppBar("PetFinder"),
+      appBar: myAppBar("PetFinder", false),
       body: SafeArea(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 250),
@@ -81,7 +81,7 @@ class _StartScreenState extends State<StartScreen> {
 
   Widget authFirstPage() {
     return Scaffold(
-      appBar: myAppBar("PetFinder"),
+      appBar: myAppBar("PetFinder", false),
       body: SafeArea(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 250),

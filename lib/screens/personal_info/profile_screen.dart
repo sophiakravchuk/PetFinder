@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget personalInfo() {
     return Scaffold(
-      appBar: myAppBar("Profile"),
+      appBar: myAppBar("Profile", false),
       body: SafeArea(
         child: Container(
             child: ListView(

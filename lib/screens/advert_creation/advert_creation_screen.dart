@@ -81,7 +81,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
 
   Widget advertCreation() {
     return Scaffold(
-      appBar: myAppBar("New Advert"),
+      appBar: myAppBar("New Advert", false),
       body: SafeArea(
         child: Container(
             child: ListView(
@@ -92,26 +92,29 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        buildImage(),
-                        Positioned(
-                          bottom: 0,
-                          right: 4,
-                          child: ClipOval(
-                            child: Container(
-                                color: Colors.blue,
-                                child: IconButton(
-                                  icon: Icon(Icons.camera_alt),
-                                  color: Colors.white,
-                                  iconSize: 20,
-                                  onPressed: () {
-                                    _showPicker(context);
-                                  },
-                                )),
+                    const SizedBox(height: 20),
+                    Center(
+                      child:Stack(
+                        children: [
+                          buildImage(),
+                          Positioned(
+                            bottom: 0,
+                            right: 4,
+                            child: ClipOval(
+                              child: Container(
+                                  color: Colors.blue,
+                                  child: IconButton(
+                                    icon: Icon(Icons.camera_alt),
+                                    color: Colors.white,
+                                    iconSize: 20,
+                                    onPressed: () {
+                                      _showPicker(context);
+                                    },
+                                  )),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 24),
@@ -134,44 +137,58 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                       controller: this.phoneNumber,
                       onChanged: (phoneNumber) {},
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 26),
 
-                    Text(
-                      "Pet",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    Row(
+                      children: [
+                        const SizedBox(width: 60),
+                        Column(
+                          children: [
+                            Text(
+                              "Pet",
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+
+                            DropdownButton<String>(
+                              value: dropdownAnimalType,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              items: animalTypes.map((String items) {
+                                return DropdownMenuItem(value: items, child: Text(items));
+                              }).toList(),
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  dropdownAnimalType = newValue;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 50),
+                        Column(
+                          children: [
+                            Text(
+                              "Advert Type",
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+
+                            DropdownButton<String>(
+                              value: dropdownAdvertType,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              items: advertTypes.map((String items) {
+                                return DropdownMenuItem(value: items, child: Text(items));
+                              }).toList(),
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  dropdownAdvertType = newValue;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
 
-                    DropdownButton<String>(
-                      value: dropdownAnimalType,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: animalTypes.map((String items) {
-                        return DropdownMenuItem(value: items, child: Text(items));
-                      }).toList(),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownAnimalType = newValue;
-                        });
-                      },
-                    ),
 
-                    const SizedBox(height: 24),
-                    Text(
-                      "Advert Type",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-
-                    DropdownButton<String>(
-                      value: dropdownAdvertType,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: advertTypes.map((String items) {
-                        return DropdownMenuItem(value: items, child: Text(items));
-                      }).toList(),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownAdvertType = newValue;
-                        });
-                      },
-                    ),
                     const SizedBox(height: 24),
                     TextFieldWidget(
                       label: 'Pet name',

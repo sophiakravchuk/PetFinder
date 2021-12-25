@@ -63,7 +63,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   Widget authLogInPage() {
     return Scaffold(
-        appBar: myAppBar("PetFinder"),
+        appBar: myAppBar("PetFinder", true),
         body: SafeArea(
           child:Form(
             key: _formKey,

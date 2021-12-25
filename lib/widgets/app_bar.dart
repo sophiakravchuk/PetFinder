@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-Widget myAppBar(String title) {
+Widget myAppBar(String title, bool hasLeading) {
   return
     AppBar(
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: hasLeading,
       title:
       Padding(
         padding: EdgeInsets.only(top: 15),

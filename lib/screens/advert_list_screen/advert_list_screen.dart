@@ -57,7 +57,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
     return RefreshIndicator(
       onRefresh: _pullRefresh,
       child: Scaffold(
-        appBar: myAppBar("Advent List"),
+        appBar: myAppBar("Advent List", false),
         body: SafeArea(
           child: Container(
               child: advertList()),

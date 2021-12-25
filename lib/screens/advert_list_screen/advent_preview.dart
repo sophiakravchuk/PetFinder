@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lost_animal/blocs/advert_list_bloc/advert_list_bloc.dart';
+import 'package:lost_animal/blocs/advert_list_bloc/advert_list_event.dart';
 import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
 import 'package:lost_animal/services/http_services.dart';
@@ -17,6 +20,7 @@ class AdventPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HttpService httpService = HttpService();
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -35,12 +39,12 @@ class AdventPreview extends StatelessWidget {
         width: 367.w,
         padding: EdgeInsets.fromLTRB(27.w, 13.w, 13.w, 10.w),
         decoration: _decoration(),
-        child: _content(context),
+        child: _content(context, httpService),
       ),
     );
   }
 
-  Widget _content(BuildContext context) =>
+  Widget _content(BuildContext context, HttpService httpService) =>
 
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,9 +83,7 @@ class AdventPreview extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () {
-                    HttpService httpService = HttpService();
-                    httpService.deleteLostForm(advent.id);
-
+                    BlocProvider.of<AdventListBloc>(context).add(AdventListDelete(id: advent.id));
                   },
                   padding: EdgeInsets.all(0.0),
                   iconSize: 30.sp,

@@ -20,6 +20,8 @@ class AdventListBloc extends Bloc<AdventListEvent, AdventListState> {
   Stream<AdventListState> mapEventToState(AdventListEvent event) async* {
     if (event is AdventListLoad) {
       yield* _mapAdventListLoad(event);
+    } else if (event is AdventListDelete) {
+      yield* _mapAdventListDelete(event);
     }
   }
 
@@ -40,5 +42,23 @@ class AdventListBloc extends Bloc<AdventListEvent, AdventListState> {
         adventList: advertList, adventListMy: advertListMy);
   }
 
+  Stream<AdventListState> _mapAdventListDelete(
+      AdventListDelete event) async* {
+    yield AdventListLoading();
+
+    var result = await httpService.deleteLostForm(event.id);
+    List<LostForm> advertListMy = [];
+    List<LostForm> advertList = await httpService.getLostForms();
+    String info = await storage.getUserInfo();
+    // String info1 = await storage.removeUserInfo();
+    UserForm userForm = UserForm.fromJsonStorage(jsonDecode(info));
+    for (LostForm advert in advertList) {
+      if (advert.userId == userForm.id) {
+        advertListMy.add(advert);
+      }
+    }
+    yield AdventListLoaded(
+        adventList: advertList, adventListMy: advertListMy);
+  }
 
 }

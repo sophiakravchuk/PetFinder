@@ -86,7 +86,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
 
   Widget advertCreation() {
     return Scaffold(
-      appBar: myAppBar( 'Advert'),
+      appBar: myAppBar( 'Advert', true),
       body: SafeArea(
         child: Container(
             padding: const EdgeInsets.all(20),
@@ -96,123 +96,15 @@ class _AdvertScreenState extends State<AdvertScreen> {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                buildImage(),
-                const SizedBox(height: 24),
-                Text(
-                  'Author name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.authorName,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
+                Center(
+                  child: buildImage(),
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  'Phone number',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.phoneNumber,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
-                ),
+                infoContainerPet(),
                 const SizedBox(height: 24),
-                Text(
-                  'Email',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.mail,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Pet',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.animalType,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Pet name',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.animalName,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Description',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  widget.description,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 24),
+                infoContainerUser(),
               ],
             ),
           ],
@@ -221,7 +113,161 @@ class _AdvertScreenState extends State<AdvertScreen> {
     );
   }
 
+  Widget infoContainerUser() {
+    return Container(
+      width: 320.w,
+      padding: EdgeInsets.fromLTRB(27.w, 13.w, 13.w, 10.w),
+      decoration: _decoration(Color(0xFFC5D9EF)),
+      child:       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+              Text(
+                'Author name',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.authorName,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Phone number',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.phoneNumber,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Email',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.mail,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+        ],
+      ),
+    );
+  }
 
+  Widget infoContainerPet() {
+    return Container(
+      width: 320.w,
+      padding: EdgeInsets.fromLTRB(27.w, 13.w, 13.w, 10.w),
+      decoration: _decoration(Color(0x88000066)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+              Text(
+                'Pet',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.animalType,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Pet name',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.animalName,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Description',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.description,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+      ),
+    );
+  }
+
+  Decoration _decoration(Color color) =>
+      BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      );
 
   Widget saveUserProfileButton() {
     return Container(
@@ -248,10 +294,10 @@ class _AdvertScreenState extends State<AdvertScreen> {
 
   Widget buildImage() {
     return Container(
-        child:  Material(
+        child: Material(
 
             color: Colors.transparent,
-            child: widget.image == "" ?
+            child: (widget.image == "" || widget.image == null) ?
             Container(
               height: 200,
               width: 200,
@@ -259,13 +305,36 @@ class _AdvertScreenState extends State<AdvertScreen> {
                 border: Border.all(color: Colors.teal, width: 1.5),
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
               child: Image.asset('assets/images/default.png'),
             )
-                : Image.memory(base64Decode(widget.image),
-              width: 200,
-              height: 200,
-              fit: BoxFit.cover, )
+                : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Image.memory(base64Decode(widget.image),
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                )
+            )
 
         )
 
