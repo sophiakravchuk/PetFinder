@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/size_extension.dart';
 import 'package:lost_animal/blocs/advert/advert_bloc.dart';
 import 'package:lost_animal/blocs/advert/advert_event.dart';
 import 'package:lost_animal/blocs/advert/advert_state.dart';
@@ -97,6 +98,9 @@ class _AdvertScreenState extends State<AdvertScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 15.h,
+                ),
                 buildImage(),
                 const SizedBox(height: 24),
                 Text(
@@ -248,8 +252,9 @@ class _AdvertScreenState extends State<AdvertScreen> {
   Widget buildImage() {
     return Container(
         child:  Material(
+
             color: Colors.transparent,
-            child: widget.image == null ?
+            child: widget.image == "" ?
             Container(
               height: 200,
               width: 200,
