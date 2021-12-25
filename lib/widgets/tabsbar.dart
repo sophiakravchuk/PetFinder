@@ -27,8 +27,8 @@ class _TabsBarScreenState extends State<TabsBarScreen> {
         },
         child: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.green,
-            selectedItemColor: Colors.black,
+            backgroundColor: Color(0xFF63B4FF),
+            selectedItemColor: Color(0xFFE5EFF3),
             currentIndex: _currentIndex,
             items: [
               BottomNavigationBarItem(

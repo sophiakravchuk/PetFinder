@@ -12,7 +12,7 @@ import 'package:lost_animal/screens/advert_list_screen/advert_list_screen.dart';
 import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
 import 'package:lost_animal/services/http_services.dart';
-import 'package:lost_animal/widgets/tabsbar.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
 
 import '../../constants.dart';
@@ -80,7 +80,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
 
   Widget advertCreation() {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar("New Advert"),
       body: SafeArea(
         child: Container(
             child: ListView(
@@ -188,6 +188,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
                       height: 50,
                     ),
                     saveAdvertButton(),
+                    const SizedBox(height: 24)
                   ],
                 )
               ],
@@ -279,33 +280,18 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
     });
   }
 
-  Widget myAppBar() {
-    return AppBar(
-      title: Padding(
-        padding: EdgeInsets.only(top: 15),
-        child: Text(
-          'New Advert',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green,
-      elevation: 0,
-    );
-  }
 
   Widget saveAdvertButton() {
     LostForm lostForm = LostForm();
-    return Container(
-      width: 100.0,
-      height: 35.0,
-      child: FloatingActionButton(
+    return Center(
+        child:
+        Container(
+        width: 100.0,
+        height: 35.0,
+        child:
+        FloatingActionButton(
         heroTag: "save_profile_button",
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF000066),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: Text(
@@ -343,7 +329,7 @@ class _AdvertCreationScreenState extends State<AdvertCreationScreen> {
           );
         },
       ),
-    );
+    ));
   }
 
 

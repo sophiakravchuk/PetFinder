@@ -13,6 +13,7 @@ import 'package:lost_animal/blocs/authlogin_bloc/authlogin_state.dart';
 import 'package:lost_animal/services/UserForm.dart';
 import 'package:lost_animal/services/http_services.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 
 
 import '../../constants.dart';
@@ -62,7 +63,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   Widget authLogInPage() {
     return Scaffold(
-        appBar: myAppBar(),
+        appBar: myAppBar("PetFinder"),
         body: SafeArea(
           child:Form(
             key: _formKey,
@@ -201,26 +202,6 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  Widget myAppBar() {
-    return
-      AppBar(
-        title:
-        Padding(
-          padding: EdgeInsets.only(top: 10.h),
-          child: Text(
-            'PetFinder',
-            style: TextStyle(
-              color: Color(0xFF000033),
-              fontWeight: FontWeight.bold,
-              fontSize: 25.sp,
-            ),
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Color(0xFF63B4FF),
-        elevation: 0,
-      );
-  }
 
 
 

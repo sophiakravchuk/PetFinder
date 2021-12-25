@@ -138,7 +138,7 @@ class _AdvertListScreenState extends State<AdvertListScreen> {
                       ? Icons.check_box
                       : Icons.check_box_outline_blank,
                   size: 26.w,
-                  color: Colors.green)
+                  color: Color(0xFF000033))
             ]),
       ),
     );

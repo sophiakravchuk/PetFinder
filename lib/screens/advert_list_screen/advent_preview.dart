@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lost_animal/screens/advert_screen/advert_screen.dart';
 import 'package:lost_animal/services/LostForm_model.dart';
+import 'package:lost_animal/services/http_services.dart';
 
 
 class AdventPreview extends StatelessWidget {
@@ -74,7 +75,8 @@ class AdventPreview extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () {
-                    //  TODO:on press delete
+                    HttpService httpService = HttpService();
+                    httpService.deleteLostForm(advent.id);
                   },
                   iconSize: 30.sp,
                 ),
@@ -151,7 +153,7 @@ class AdventPreview extends StatelessWidget {
 
   Decoration _decoration() =>
       BoxDecoration(
-        color: Colors.green.shade50,
+        color: Color(0xFFC5D9EF),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),

@@ -8,6 +8,7 @@ import 'package:lost_animal/blocs/advert/advert_bloc.dart';
 import 'package:lost_animal/blocs/advert/advert_event.dart';
 import 'package:lost_animal/blocs/advert/advert_state.dart';
 import 'package:lost_animal/widgets/text_field_widget.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 
 import '../../constants.dart';
 
@@ -85,7 +86,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
 
   Widget advertCreation() {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar( 'Advert'),
       body: SafeArea(
         child: Container(
             child: ListView(
@@ -219,24 +220,7 @@ class _AdvertScreenState extends State<AdvertScreen> {
     );
   }
 
-  Widget myAppBar() {
-    return AppBar(
-      title: Padding(
-        padding: EdgeInsets.only(top: 15),
-        child: Text(
-          'New Advert',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green,
-      elevation: 0,
-    );
-  }
+
 
   Widget saveUserProfileButton() {
     return Container(

@@ -7,6 +7,7 @@ import 'package:lost_animal/blocs/start_bloc/start_event.dart';
 import 'package:lost_animal/blocs/start_bloc/start_state.dart';
 import 'package:lost_animal/screens/auth/log_in_page.dart';
 import 'package:lost_animal/screens/auth/sing_up_page.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
 
 import '../../constants.dart';
@@ -58,7 +59,7 @@ class _StartScreenState extends State<StartScreen> {
 
   Widget authLoadPage() {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar("PetFinder"),
       body: SafeArea(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 250),
@@ -80,7 +81,7 @@ class _StartScreenState extends State<StartScreen> {
 
   Widget authFirstPage() {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar("PetFinder"),
       body: SafeArea(
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 250),
@@ -137,7 +138,7 @@ class _StartScreenState extends State<StartScreen> {
       height: 65.0.h,
       child: FloatingActionButton(
         heroTag: "signup_button",
-        backgroundColor: Color(0xFF000033),
+        backgroundColor: Color(0xFF000066),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: Text(
@@ -158,26 +159,6 @@ class _StartScreenState extends State<StartScreen> {
     );
   }
 
-  Widget myAppBar() {
-    return
-      AppBar(
-        title:
-        Padding(
-          padding: EdgeInsets.only(top: 10.h),
-          child: Text(
-            'PetFinder',
-            style: TextStyle(
-              color: Color(0xFF000033),
-              fontWeight: FontWeight.bold,
-              fontSize: 25.sp,
-            ),
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Color(0xFF63B4FF),
-        elevation: 0,
-      );
-  }
 
   Widget loadingCircle() {
     Widget indicator = CupertinoActivityIndicator();

@@ -10,6 +10,7 @@ import 'package:lost_animal/screens/personal_info/profile_screen.dart';
 import 'package:lost_animal/blocs/authsingup_bloc/authsingup_bloc.dart';
 import 'package:lost_animal/blocs/authsingup_bloc/authsingup_state.dart';
 import 'package:lost_animal/widgets/tabsbar.dart';
+import 'package:lost_animal/widgets/app_bar.dart';
 
 import '../../constants.dart';
 
@@ -64,7 +65,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
   Widget authSingUpPage() {
 
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar("PetFinder"),
       body: SafeArea(
           child:Form(
             key: _formKey,
@@ -256,26 +257,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
     );
   }
 
-  Widget myAppBar() {
-    return
-      AppBar(
-        title:
-        Padding(
-          padding: EdgeInsets.only(top: 10.h),
-          child: Text(
-            'PetFinder',
-            style: TextStyle(
-              color: Color(0xFF000033),
-              fontWeight: FontWeight.bold,
-              fontSize: 25.sp,
-            ),
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Color(0xFF63B4FF),
-        elevation: 0,
-      );
-  }
 
 }
 

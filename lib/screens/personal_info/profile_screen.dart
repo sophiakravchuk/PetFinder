@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       height: 55.0.h,
       child: FloatingActionButton(
         heroTag: "login_button",
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF000066),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: Text(

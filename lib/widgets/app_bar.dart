@@ -11,14 +11,14 @@ Widget myAppBar(String title) {
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: Color(0xFF000033),
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
         ),
       ),
       centerTitle: true,
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xFF63B4FF),
       elevation: 0,
     );
 }
